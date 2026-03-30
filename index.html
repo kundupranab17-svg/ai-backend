@@ -1,3 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StudyHelper AI</title>
+</head>
+
+<body style="text-align:center; margin-top:100px; font-family:Arial;">
+
+<h1>StudyHelper AI</h1>
+
+<input type="text" id="question" placeholder="Ask your question...">
+<button onclick="getAnswer()">Ask</button>
+
+<p id="answer"></p>
+
 <script>
 async function getAnswer() {
   let q = document.getElementById("question").value;
@@ -9,15 +25,22 @@ async function getAnswer() {
 
   document.getElementById("answer").innerText = "Thinking...";
 
-  const response = await fetch("https://ai-backend-ntf5.onrender.com/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ message: q })
-  });
+  try {
+    const response = await fetch("https://ai-backend-ntf5.onrender.com/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: q })
+    });
 
-  const data = await response.json();
-  document.getElementById("answer").innerText = data.reply;
+    const data = await response.json();
+    document.getElementById("answer").innerText = data.reply;
+  } catch (error) {
+    document.getElementById("answer").innerText = "Error connecting to AI";
+  }
 }
 </script>
+
+</body>
+</html>
