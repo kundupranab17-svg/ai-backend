@@ -22,7 +22,7 @@
       background: rgba(0,0,0,0.3);
       backdrop-filter: blur(10px);
     }
-
+     <button id="modeBtn" onclick="toggleMode()">Exam Mode: OFF</button>
     #chat {
       flex: 1;
       overflow-y: auto;
@@ -98,6 +98,14 @@
 </div>
 
 <script>
+let examMode = false;
+
+function toggleMode() {
+  examMode = !examMode;
+  document.getElementById("modeBtn").innerText =
+    examMode ? "Exam Mode: ON" : "Exam Mode: OFF";
+}
+
 function send() {
   let q = document.getElementById("question").value;
   if(q === "") return;
@@ -115,13 +123,18 @@ function send() {
   chat.appendChild(botMsg);
 
   setTimeout(() => {
-    botMsg.innerText = "✨ This is your AI response (demo). Real AI coming next step!";
+    if(examMode) {
+      botMsg.innerText =
+        "1. Short Answer\n2. Key Point\n3. Important Fact\n4. Conclusion";
+    } else {
+      botMsg.innerText =
+        "This is a detailed explanation of your question. It explains everything clearly and step by step so you can understand deeply.";
+    }
   }, 1000);
 
   document.getElementById("question").value = "";
   chat.scrollTop = chat.scrollHeight;
 }
 </script>
-
 </body>
 </html>
