@@ -20,9 +20,8 @@
       font-size: 22px;
       font-weight: bold;
       background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
     }
-     <button id="modeBtn" onclick="toggleMode()">Exam Mode: OFF</button>
+
     #chat {
       flex: 1;
       overflow-y: auto;
@@ -34,26 +33,36 @@
       padding: 12px;
       margin: 10px 0;
       border-radius: 15px;
-      line-height: 1.5;
-      animation: fadeIn 0.3s ease;
     }
 
     .user {
-      background: #00c6ff;
       background: linear-gradient(135deg, #00c6ff, #0072ff);
       margin-left: auto;
     }
 
     .bot {
-      background: #ff758c;
       background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    }
+
+    #controls {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    #modeBtn {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #222;
+      color: white;
     }
 
     #inputArea {
       display: flex;
       padding: 15px;
       background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
     }
 
     input {
@@ -61,27 +70,17 @@
       padding: 12px;
       border-radius: 10px;
       border: none;
-      font-size: 16px;
     }
 
     button {
       margin-left: 10px;
-      padding: 12px 18px;
+      padding: 12px;
       border-radius: 10px;
       border: none;
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      cursor: pointer;
+      background: #00c6ff;
       color: white;
       font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: 0.8;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
@@ -89,6 +88,10 @@
 <body>
 
 <header>StudyGenius AI 🤖</header>
+
+<div id="controls">
+  <button id="modeBtn" onclick="toggleMode()">Exam Mode: OFF</button>
+</div>
 
 <div id="chat"></div>
 
@@ -125,10 +128,10 @@ function send() {
   setTimeout(() => {
     if(examMode) {
       botMsg.innerText =
-        "1. Short Answer\n2. Key Point\n3. Important Fact\n4. Conclusion";
+        "1. Key Point\n2. Important Concept\n3. Short Explanation\n4. Conclusion";
     } else {
       botMsg.innerText =
-        "This is a detailed explanation of your question. It explains everything clearly and step by step so you can understand deeply.";
+        "This is a detailed explanation of your question. It explains the concept clearly with proper understanding and examples.";
     }
   }, 1000);
 
@@ -136,5 +139,6 @@ function send() {
   chat.scrollTop = chat.scrollHeight;
 }
 </script>
+
 </body>
 </html>
