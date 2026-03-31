@@ -1,71 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>StudyHelper AI</title>
+  <title>StudyGenius AI</title>
   <style>
     body {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin: 0;
       font-family: Arial;
-      text-align: center;
+      background: #343541;
       color: white;
-      margin-top: 100px;
     }
+
+    #chat {
+      height: 80vh;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .msg {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 60%;
+    }
+
+    .user {
+      background: #10a37f;
+      margin-left: auto;
+    }
+
+    .bot {
+      background: #444654;
+    }
+
+    #inputArea {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      background: #40414f;
+      padding: 10px;
+    }
+
     input {
-      padding: 12px;
-      width: 250px;
-      border-radius: 10px;
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
       border: none;
     }
+
     button {
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
       margin-left: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
       cursor: pointer;
-    }
-    #answer {
-      margin-top: 20px;
-      font-size: 18px;
     }
   </style>
 </head>
+
 <body>
 
-<h1>StudyHelper AI 🤖</h1>
+<div id="chat"></div>
 
-<input type="text" id="question" placeholder="Ask anything...">
-<button onclick="getAnswer()">Ask</button>
-
-<p id="answer"></p>
+<div id="inputArea">
+  <input id="question" placeholder="Ask anything...">
+  <button onclick="send()">Send</button>
+</div>
 
 <script>
-async function getAnswer() {
+function send() {
   let q = document.getElementById("question").value;
-  if(q === "") {
-    document.getElementById("answer").innerText = "Please enter a question!";
-    return;
-  }
+  if(q === "") return;
 
-  document.getElementById("answer").innerText = "Thinking...";
+  let chat = document.getElementById("chat");
 
-  try {
-    // Free in-browser AI using Hugging Face Inference API (no key required for some models)
-    const response = await fetch("https://api-inference.huggingface.co/models/google/flan-t5-small", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({inputs: q})
-    });
+  let userMsg = document.createElement("div");
+  userMsg.className = "msg user";
+  userMsg.innerText = q;
+  chat.appendChild(userMsg);
 
-    const data = await response.json();
-    if(data[0] && data[0].generated_text) {
-      document.getElementById("answer").innerText = data[0].generated_text;
-    } else {
-      document.getElementById("answer").innerText = "Sorry, I couldn't find an answer.";
-    }
+  let botMsg = document.createElement("div");
+  botMsg.className = "msg bot";
+  botMsg.innerText = "This is demo AI response";
+  chat.appendChild(botMsg);
 
-  } catch (error) {
-    document.getElementById("answer").innerText = "Error, try again!";
-  }
+  document.getElementById("question").value = "";
+  chat.scrollTop = chat.scrollHeight;
 }
 </script>
 
