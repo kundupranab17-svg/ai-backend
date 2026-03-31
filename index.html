@@ -7,12 +7,24 @@
     body {
       margin: 0;
       font-family: Arial;
-      background: #343541;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
       color: white;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
     }
 
     #chat {
-      height: 85vh;
+      flex: 1;
       overflow-y: auto;
       padding: 20px;
     }
@@ -21,54 +33,62 @@
       max-width: 70%;
       padding: 12px;
       margin: 10px 0;
-      border-radius: 12px;
-      line-height: 1.4;
+      border-radius: 15px;
+      line-height: 1.5;
+      animation: fadeIn 0.3s ease;
     }
 
     .user {
-      background: #10a37f;
+      background: #00c6ff;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
       margin-left: auto;
     }
 
     .bot {
-      background: #444654;
+      background: #ff758c;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
     }
 
     #inputArea {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
       display: flex;
-      padding: 10px;
-      background: #40414f;
+      padding: 15px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
     }
 
     input {
       flex: 1;
       padding: 12px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
       font-size: 16px;
     }
 
     button {
       margin-left: 10px;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 12px 18px;
+      border-radius: 10px;
       border: none;
-      background: #10a37f;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
       color: white;
       font-weight: bold;
       cursor: pointer;
     }
 
     button:hover {
-      background: #0e8e6d;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
 
 <body>
+
+<header>StudyGenius AI 🤖</header>
 
 <div id="chat"></div>
 
@@ -94,9 +114,8 @@ function send() {
   botMsg.innerText = "Thinking...";
   chat.appendChild(botMsg);
 
-  // fake response (for now)
   setTimeout(() => {
-    botMsg.innerText = "This is a demo AI response. Real AI coming next step.";
+    botMsg.innerText = "✨ This is your AI response (demo). Real AI coming next step!";
   }, 1000);
 
   document.getElementById("question").value = "";
