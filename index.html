@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -27,6 +27,21 @@ body.light{background:#ffffff;color:#111;}
 }
 body.light .sidebar{background:#f7f7f8;}
 
+.logoBox{
+  display:flex;
+  justify-content:center;
+  margin-bottom:15px;
+}
+
+.logoBox img{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 0 12px rgba(0,0,0,0.4);
+}
+
+/* BUTTON */
 .btn{
   padding:10px;
   border:none;
@@ -50,15 +65,10 @@ body.light .btn:hover{background:#e5e5e5;}
 .topbar{
   display:flex;
   justify-content:space-between;
-  align-items:center;
   padding:10px 20px;
   border-bottom:1px solid #444;
 }
 body.light .topbar{border-bottom:1px solid #ddd;}
-
-.title{
-  font-weight:600;
-}
 
 .actions{
   display:flex;
@@ -73,11 +83,6 @@ body.light .topbar{border-bottom:1px solid #ddd;}
   overflow-y:auto;
 }
 
-.msg{
-  max-width:700px;
-  margin:10px auto;
-}
-
 /* INPUT */
 .inputBar{
   padding:15px;
@@ -88,6 +93,8 @@ body.light .inputBar{border-top:1px solid #ddd;}
 .inputBox{
   display:flex;
   gap:10px;
+  max-width:700px;
+  margin:auto;
 }
 
 input{
@@ -103,11 +110,6 @@ button{
   border-radius:8px;
   cursor:pointer;
 }
-
-/* TOGGLE */
-.toggle{
-  cursor:pointer;
-}
 </style>
 </head>
 
@@ -116,9 +118,17 @@ button{
 <!-- SIDEBAR -->
 <div class="sidebar">
   <div>
+
+    <!-- FINAL LOGO -->
+    <div class="logoBox">
+      <!-- PUT YOUR IMAGE FILE NAME HERE -->
+      <img src="logo.png" alt="logo">
+    </div>
+
     <button class="btn">+ New Chat</button>
     <button class="btn">Search</button>
     <button class="btn">Library</button>
+
   </div>
 
   <div>Pranab<br>Free Plan</div>
@@ -128,7 +138,7 @@ button{
 <div class="main">
 
   <div class="topbar">
-    <div class="title">StudyGenius AI ▼</div>
+    <div>StudyGenius AI ▼</div>
 
     <div class="actions">
       <span onclick="toggleTheme()">🌗</span>
@@ -168,12 +178,10 @@ function send(){
   let chat=document.getElementById("chat");
 
   let msg=document.createElement("div");
-  msg.className="msg";
   msg.innerText="You: "+q;
   chat.appendChild(msg);
 
   let bot=document.createElement("div");
-  bot.className="msg";
   bot.innerText="AI: Thinking...";
   chat.appendChild(bot);
 
@@ -182,9 +190,7 @@ function send(){
   },1000);
 
   document.getElementById("q").value="";
-  chat.scrollTop=chat.scrollHeight;
 }
-
 </script>
 
 </body>
