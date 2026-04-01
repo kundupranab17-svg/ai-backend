@@ -5,7 +5,7 @@
 <title>StudyGenius AI</title>
 
 <style>
-body {
+body{
   margin:0;
   font-family: Arial;
   background:#0f172a;
@@ -15,7 +15,7 @@ body {
 }
 
 /* SIDEBAR */
-.sidebar {
+.sidebar{
   width:260px;
   background:#020617;
   padding:15px;
@@ -24,88 +24,108 @@ body {
   justify-content:space-between;
 }
 
-.logo {
-  font-size:20px;
-  font-weight:bold;
-  background: linear-gradient(90deg,#00c6ff,#ff7eb3);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+/* LOGO */
+.logoBox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
 }
 
-.menu button {
+.logoShape{
+  width:35px;
+  height:35px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#00c6ff,#ff7eb3);
+  box-shadow:0 0 15px #00c6ff;
+}
+
+.logoText{
+  font-size:18px;
+  font-weight:bold;
+}
+
+/* BUTTONS */
+.iconBtn{
+  display:flex;
+  align-items:center;
+  gap:10px;
   width:100%;
-  margin:5px 0;
   padding:10px;
   border:none;
   border-radius:10px;
   background:#1e293b;
   color:white;
   cursor:pointer;
+  margin:5px 0;
+  transition:0.2s;
 }
 
-.bottom {
-  font-size:14px;
-  opacity:0.8;
+.iconBtn:hover{
+  background:#334155;
+}
+
+.icon{
+  width:16px;
+  height:16px;
+  background:white;
+  border-radius:3px;
 }
 
 /* MAIN */
-.main {
+.main{
   flex:1;
   display:flex;
   flex-direction:column;
 }
 
-/* TOP BAR */
-.topbar {
+/* TOPBAR */
+.topbar{
   padding:10px;
   display:flex;
   justify-content:space-between;
   background:#020617;
 }
 
-.plan {
-  cursor:pointer;
-}
-
 /* CHAT */
-.chat {
+.chat{
   flex:1;
   padding:20px;
   overflow-y:auto;
 }
 
-.msg {
+.msg{
   max-width:70%;
   padding:12px;
   margin:10px 0;
   border-radius:15px;
 }
 
-.user {
+.user{
   background:linear-gradient(135deg,#00c6ff,#0072ff);
   margin-left:auto;
 }
 
-.bot {
+.bot{
   background:linear-gradient(135deg,#ff758c,#ff7eb3);
 }
 
 /* INPUT */
-.inputBar {
+.inputBar{
   display:flex;
   padding:10px;
   background:#020617;
   align-items:center;
 }
 
-.inputBar input {
+.inputBar input{
   flex:1;
   padding:12px;
   border:none;
   border-radius:10px;
 }
 
-.inputBar button {
+.inputBar button{
   margin-left:8px;
   padding:10px;
   border:none;
@@ -113,12 +133,12 @@ body {
   cursor:pointer;
 }
 
-.plus { background:#1e293b; color:white; }
-.mic { background:#1e293b; color:white; }
-.send { background:#00c6ff; color:white; }
+.plus{background:#1e293b;color:white;}
+.mic{background:#1e293b;color:white;}
+.send{background:#00c6ff;color:white;}
 
-/* FEATURE PANEL */
-.panel {
+/* PANEL */
+.panel{
   display:none;
   position:absolute;
   bottom:70px;
@@ -126,13 +146,6 @@ body {
   background:#1e293b;
   padding:10px;
   border-radius:10px;
-}
-
-.panel button {
-  display:block;
-  width:100%;
-  margin:5px 0;
-  padding:8px;
 }
 </style>
 </head>
@@ -142,18 +155,20 @@ body {
 <!-- SIDEBAR -->
 <div class="sidebar">
   <div>
-    <div class="logo">StudyGenius AI</div>
-    <div class="menu">
-      <button onclick="newChat()">➕ New Chat</button>
-      <button>🔍 Search</button>
-      <button>🖼 Images</button>
-      <button>🧠 Deep Search</button>
-      <button>💻 Codex</button>
-      <button>📁 Projects</button>
+    <div class="logoBox">
+      <div class="logoShape"></div>
+      <div class="logoText">StudyGenius</div>
     </div>
+
+    <button class="iconBtn"><div class="icon"></div> New Chat</button>
+    <button class="iconBtn"><div class="icon"></div> Search</button>
+    <button class="iconBtn"><div class="icon"></div> Images</button>
+    <button class="iconBtn"><div class="icon"></div> Deep Search</button>
+    <button class="iconBtn"><div class="icon"></div> Codex</button>
+    <button class="iconBtn"><div class="icon"></div> Projects</button>
   </div>
 
-  <div class="bottom">
+  <div>
     👤 Pranab<br>
     💎 Free Plan
   </div>
@@ -164,17 +179,16 @@ body {
 
   <div class="topbar">
     <div>StudyGenius AI</div>
-    <div class="plan">⬇ Plans</div>
+    <div>⬇ Plans</div>
   </div>
 
   <div class="chat" id="chat"></div>
 
-  <!-- FEATURE PANEL -->
   <div class="panel" id="panel">
-    <button onclick="alert('Notes Generator')">📚 Notes</button>
-    <button onclick="alert('Practice Paper')">📝 Practice Paper</button>
-    <button onclick="alert('Study Planner')">📅 Planner</button>
-    <button onclick="alert('Upload Image')">📸 Upload</button>
+    <button>📚 Notes</button>
+    <button>📝 Practice Paper</button>
+    <button>📅 Planner</button>
+    <button>📸 Upload</button>
   </div>
 
   <div class="inputBar">
@@ -187,46 +201,40 @@ body {
 </div>
 
 <script>
-let examMode = true;
-
-function togglePanel() {
-  let p = document.getElementById("panel");
-  p.style.display = p.style.display === "block" ? "none" : "block";
+function togglePanel(){
+  let p=document.getElementById("panel");
+  p.style.display=p.style.display==="block"?"none":"block";
 }
 
-function newChat() {
-  document.getElementById("chat").innerHTML = "";
-}
+function send(){
+  let q=document.getElementById("q").value;
+  if(!q)return;
 
-function send() {
-  let q = document.getElementById("q").value;
-  if(!q) return;
+  let chat=document.getElementById("chat");
 
-  let chat = document.getElementById("chat");
-
-  let user = document.createElement("div");
-  user.className = "msg user";
-  user.innerText = q;
+  let user=document.createElement("div");
+  user.className="msg user";
+  user.innerText=q;
   chat.appendChild(user);
 
-  let bot = document.createElement("div");
-  bot.className = "msg bot";
-  bot.innerHTML = "Thinking...";
+  let bot=document.createElement("div");
+  bot.className="msg bot";
+  bot.innerHTML="Thinking...";
   chat.appendChild(bot);
 
   setTimeout(()=>{
-    bot.innerHTML =
-      "<b>Answer:</b><br><br>" +
-      "1. Key concept explained.<br>" +
-      "2. Important point.<br>" +
-      "3. Example.<br>" +
-      "4. Conclusion.<br><br>" +
-      "<b>Important Questions:</b><br>" +
+    bot.innerHTML=
+      "<b>Answer:</b><br><br>"+
+      "1. Key concept explained.<br>"+
+      "2. Important point.<br>"+
+      "3. Example.<br>"+
+      "4. Conclusion.<br><br>"+
+      "<b>Important Questions:</b><br>"+
       "- Define concept<br>- Explain process";
   },1000);
 
   document.getElementById("q").value="";
-  chat.scrollTop = chat.scrollHeight;
+  chat.scrollTop=chat.scrollHeight;
 }
 </script>
 
