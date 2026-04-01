@@ -28,14 +28,17 @@ body{
 }
 
 #logoAnim{
-  width:80px;
+  width:75px;
+  height:75px;
   border-radius:50%;
+  object-fit:cover; /* 🔥 FULL FIT NO GAP */
   animation:zoomFade 1.5s ease forwards;
+  box-shadow:0 0 25px rgba(0,255,255,0.8); /* GLOW */
 }
 
 @keyframes zoomFade{
   0%{transform:scale(0.5);opacity:0;}
-  50%{transform:scale(1.2);opacity:1;}
+  50%{transform:scale(1.15);opacity:1;}
   100%{transform:scale(1);}
 }
 
@@ -57,16 +60,30 @@ body{
   justify-content:space-between;
 }
 
-/* LOGO */
+/* 🔥 LOGO BOX */
 .logoBox{
-  text-align:center;
-  margin-bottom:10px;
+  display:flex;
+  justify-content:center;
+  margin-bottom:12px;
 }
+
+/* 🔥 FINAL LOGO FIX */
 .logoBox img{
-  width:60px;
-  height:60px;
+  width:36px;           /* ChatGPT size */
+  height:36px;
   border-radius:50%;
-  box-shadow:0 0 12px cyan;
+  object-fit:cover;     /* removes black space */
+  display:block;
+  box-shadow:0 0 12px rgba(0,255,255,0.6),
+             0 0 25px rgba(0,200,255,0.4);
+  transition:0.3s;
+}
+
+/* HOVER PREMIUM */
+.logoBox img:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 18px rgba(0,255,255,0.9),
+             0 0 35px rgba(0,200,255,0.6);
 }
 
 /* BUTTONS */
@@ -180,11 +197,11 @@ body{
       <img src="logo.png">
     </div>
 
-    <button class="btn" onclick="setMode('chat')">💬 Chat</button>
-    <button class="btn" onclick="setMode('notes')">📘 Notes</button>
-    <button class="btn" onclick="setMode('exam')">📝 Exam</button>
-    <button class="btn" onclick="setMode('practice')">📊 Practice</button>
-    <button class="btn" onclick="setMode('planner')">📅 Planner</button>
+    <button class="btn">💬 Chat</button>
+    <button class="btn">📘 Notes</button>
+    <button class="btn">📝 Exam</button>
+    <button class="btn">📊 Practice</button>
+    <button class="btn">📅 Planner</button>
 
   </div>
 
@@ -196,7 +213,7 @@ body{
 <div class="main">
 
 <div class="topbar">
-  <div id="modeTitle">💬 Chat</div>
+  <div>StudyGenius AI</div>
   <div>⚙️</div>
 </div>
 
@@ -220,29 +237,12 @@ body{
 </div>
 
 <script>
-/* SPLASH */
 window.onload=function(){
   setTimeout(()=>{
     document.getElementById("splash").style.display="none";
     document.getElementById("app").style.display="flex";
   },1500);
 };
-
-let currentMode="chat";
-
-function setMode(mode){
-  currentMode=mode;
-
-  let title={
-    chat:"💬 Chat",
-    notes:"📘 Notes Generator",
-    exam:"📝 Exam Mode",
-    practice:"📊 Practice",
-    planner:"📅 Study Planner"
-  };
-
-  document.getElementById("modeTitle").innerText=title[mode];
-}
 
 function send(){
   let q=document.getElementById("q").value;
@@ -260,25 +260,7 @@ function send(){
   bot.innerText="Thinking...";
   chat.appendChild(bot);
 
-  let res="";
-
-  if(currentMode==="notes"){
-    res="📘 Notes:\n• Key points\n• Explanation\n• Summary";
-  }
-  else if(currentMode==="exam"){
-    res="📝 Q1...\nQ2...\nAnswer...\nImportant Topics...";
-  }
-  else if(currentMode==="practice"){
-    res="📊 MCQ 1...\nMCQ 2...\nAnswers...";
-  }
-  else if(currentMode==="planner"){
-    res="📅 Study Plan:\nMath 2hr\nScience 1hr";
-  }
-  else{
-    res="💬 AI Response for: "+q;
-  }
-
-  setTimeout(()=>{bot.innerText=res;},800);
+  setTimeout(()=>{bot.innerText="AI Response";},800);
 
   document.getElementById("q").value="";
   chat.scrollTop=chat.scrollHeight;
