@@ -2,164 +2,157 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StudyGenius AI</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+body{
+  margin:0;
+  font-family:system-ui;
+  display:flex;
+  height:100vh;
+  transition:0.3s;
 }
 
-body {
-  background: #0f172a;
-  color: white;
-  display: flex;
-}
+/* THEMES */
+body.dark{background:#343541;color:white;}
+body.light{background:#ffffff;color:#111;}
 
 /* 🔥 SPLASH */
-#splash {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: #0f172a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+#splash{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:#0f172a;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
 }
 
-#logoAnim {
-  width: 80px;
-  border-radius: 50%;
-  animation: zoomFade 1.5s ease forwards;
+#logoAnim{
+  width:80px;
+  border-radius:50%;
+  animation:zoomFade 1.5s ease forwards;
 }
 
-@keyframes zoomFade {
-  0% { transform: scale(0.5); opacity: 0; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); }
+@keyframes zoomFade{
+  0%{transform:scale(0.5);opacity:0;}
+  50%{transform:scale(1.2);opacity:1;}
+  100%{transform:scale(1);}
 }
 
-/* APP */
-#app {
-  display: none;
-  width: 100%;
-  height: 100vh;
-  display: flex;
+/* APP WRAP */
+#app{
+  display:none;
+  width:100%;
+  height:100vh;
+  display:flex;
 }
 
-/* SIDEBAR (ChatGPT style) */
-.sidebar {
-  width: 240px;
-  background: #020617;
-  padding: 15px;
-  border-right: 1px solid #1e293b;
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:#202123;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+body.light .sidebar{background:#f7f7f8;}
+
+/* LOGO PERFECT (NO BIG SPACE NOW) */
+.logoBox{
+  display:flex;
+  justify-content:center;
+  margin-bottom:15px;
 }
 
-.sidebar h2 {
-  font-size: 16px;
-  margin-bottom: 15px;
-  opacity: 0.8;
+.logoBox img{
+  width:60px;   /* reduced */
+  height:60px;
+  border-radius:50%;
+  object-fit:cover;
+  padding:6px;
+  background:#0f172a;
+  box-shadow:0 0 12px rgba(0,200,255,0.5);
 }
 
-.sidebar button {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: none;
-  background: #1e293b;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  text-align: left;
+/* BUTTONS */
+.btn{
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  margin:4px 0;
+  background:transparent;
+  color:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+.btn:hover{background:#2a2b32;}
+body.light .btn:hover{background:#e5e5e5;}
+
+/* MAIN */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
 }
 
-.sidebar button:hover {
-  background: #334155;
+/* 🔥 TOPBAR FIXED */
+.topbar{
+  height:50px;                 /* FIX */
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  border-bottom:1px solid #444;
 }
+body.light .topbar{border-bottom:1px solid #ddd;}
 
-/* MAIN AREA */
-.main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* TOPBAR FIXED */
-.topbar {
-  height: 50px;
-  display: flex;
-  align-items: center;
-  padding: 0 15px;
-  background: #020617;
-  border-bottom: 1px solid #1e293b;
-}
-
-.nav-logo {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  margin-right: 10px;
+.actions{
+  display:flex;
+  gap:15px;
+  cursor:pointer;
 }
 
 /* CHAT */
-.chat {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.message {
-  margin-bottom: 10px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  max-width: 70%;
-}
-
-.user {
-  background: #3b82f6;
-  align-self: flex-end;
-}
-
-.bot {
-  background: #1e293b;
-  align-self: flex-start;
+.chat{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
 }
 
 /* INPUT */
-.input-area {
-  display: flex;
-  padding: 10px;
-  border-top: 1px solid #1e293b;
-  background: #020617;
+.inputBar{
+  padding:12px;
+  border-top:1px solid #444;
+}
+body.light .inputBar{border-top:1px solid #ddd;}
+
+.inputBox{
+  display:flex;
+  gap:10px;
+  max-width:700px;
+  margin:auto;
 }
 
-.input-area input {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  outline: none;
+input{
+  flex:1;
+  padding:12px;
+  border-radius:8px;
+  border:none;
 }
 
-.input-area button {
-  margin-left: 10px;
-  padding: 10px 15px;
-  border: none;
-  background: #3b82f6;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+button{
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
 }
 </style>
 </head>
 
-<body>
+<body class="dark">
 
 <!-- 🔥 SPLASH -->
 <div id="splash">
@@ -169,63 +162,87 @@ body {
 <!-- 🔥 APP -->
 <div id="app">
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <h2>StudyGenius AI</h2>
-    <button>📘 Notes</button>
-    <button>📝 Exam</button>
-    <button>📊 Practice</button>
-    <button>📅 Planner</button>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div>
+
+    <!-- LOGO -->
+    <div class="logoBox">
+      <img src="logo.png" alt="logo">
+    </div>
+
+    <button class="btn">+ New Chat</button>
+    <button class="btn">Search</button>
+    <button class="btn">Library</button>
+
   </div>
 
-  <!-- MAIN -->
-  <div class="main">
-
-    <div class="topbar">
-      <img src="logo.png" class="nav-logo">
-      StudyGenius AI
-    </div>
-
-    <div class="chat" id="chat"></div>
-
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Ask anything...">
-      <button onclick="sendMessage()">Send</button>
-    </div>
-
+  <div>
+    Pranab<br>
+    Free Plan
   </div>
 </div>
 
+<!-- MAIN -->
+<div class="main">
+
+  <div class="topbar">
+    <div>StudyGenius AI ▼</div>
+
+    <div class="actions">
+      <span onclick="toggleTheme()">🌗</span>
+      <span>🔗</span>
+      <span>⋮</span>
+    </div>
+  </div>
+
+  <div class="chat" id="chat"></div>
+
+  <div class="inputBar">
+    <div class="inputBox">
+      <input id="q" placeholder="Message StudyGenius..." onkeydown="if(event.key==='Enter') send()">
+      <button onclick="send()">Send</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
 <script>
-window.onload = function () {
-  setTimeout(() => {
-    document.getElementById("splash").style.display = "none";
-    document.getElementById("app").style.display = "flex";
-  }, 1500);
+
+/* SPLASH FIX */
+window.onload = function(){
+  setTimeout(()=>{
+    document.getElementById("splash").style.display="none";
+    document.getElementById("app").style.display="flex";
+  },1500);
 };
 
-function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chat = document.getElementById("chat");
+function toggleTheme(){
+  let body=document.body;
+  body.classList.toggle("dark");
+  body.classList.toggle("light");
+}
 
-  if (input.value.trim() === "") return;
+function send(){
+  let q=document.getElementById("q").value;
+  if(!q)return;
 
-  const userMsg = document.createElement("div");
-  userMsg.className = "message user";
-  userMsg.innerText = input.value;
-  chat.appendChild(userMsg);
+  let chat=document.getElementById("chat");
 
-  const botMsg = document.createElement("div");
-  botMsg.className = "message bot";
-  botMsg.innerText = "Thinking...";
-  chat.appendChild(botMsg);
+  let msg=document.createElement("div");
+  msg.innerText="You: "+q;
+  chat.appendChild(msg);
 
-  setTimeout(() => {
-    botMsg.innerText = "Response for: " + input.value;
-  }, 1000);
+  let bot=document.createElement("div");
+  bot.innerText="AI: Thinking...";
+  chat.appendChild(bot);
 
-  input.value = "";
-  chat.scrollTop = chat.scrollHeight;
+  setTimeout(()=>{
+    bot.innerText="AI: Answer generated.";
+  },1000);
+
+  document.getElementById("q").value="";
 }
 </script>
 
