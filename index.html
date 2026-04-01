@@ -1,126 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>StudyGenius AI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>StudyGenius AI</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
+<style>
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  display:flex;
+  height:100vh;
+  transition:0.3s;
+}
 
-    /* Header */
-    .header {
-      padding: 15px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-      border-bottom: 1px solid #e5e5e5;
-    }
+/* DARK MODE */
+body.dark{
+  background:#0f172a;
+  color:white;
+}
+body.dark .sidebar{background:#020617;}
+body.dark .topbar{background:#020617;}
+body.dark .inputBar{background:#020617;}
+body.dark .inputBar input{background:#1e293b;color:white;}
+body.dark .btn{background:#1e293b;color:white;}
+body.dark .msg.bot{background:linear-gradient(135deg,#9333ea,#ec4899);}
+body.dark .msg.user{background:linear-gradient(135deg,#00c6ff,#0072ff);}
 
-    /* Chat area */
-    .chat-container {
-      flex: 1;
-      padding: 20px;
-      overflow-y: auto;
-    }
+/* LIGHT MODE */
+body.light{
+  background:#ffffff;
+  color:#111;
+}
+body.light .sidebar{background:#f1f5f9;}
+body.light .topbar{background:#ffffff;}
+body.light .inputBar{background:#f1f5f9;}
+body.light .inputBar input{background:#e2e8f0;color:#111;}
+body.light .btn{background:#e2e8f0;color:#111;}
+body.light .msg.bot{background:#e0e7ff;}
+body.light .msg.user{background:#c7d2fe;}
 
-    .message {
-      max-width: 60%;
-      padding: 12px 16px;
-      margin: 10px 0;
-      border-radius: 10px;
-      line-height: 1.5;
-    }
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
 
-    .user {
-      background-color: #f1f1f1;
-      margin-left: auto;
-    }
+/* LOGO */
+.logo svg{
+  width:40px;
+  height:40px;
+  margin-bottom:20px;
+}
 
-    .ai {
-      background-color: #e8f0fe;
-      margin-right: auto;
-    }
+/* BUTTONS */
+.btn{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  margin:6px 0;
+}
 
-    /* Input area */
-    .input-area {
-      display: flex;
-      padding: 10px;
-      border-top: 1px solid #e5e5e5;
-    }
+/* MAIN */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
 
-    input {
-      flex: 1;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      outline: none;
-      font-size: 14px;
-    }
+/* TOPBAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 20px;
+}
 
-    button {
-      margin-left: 10px;
-      padding: 12px 18px;
-      border: none;
-      background-color: black;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+/* CHAT */
+.chat{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+}
 
-    button:hover {
-      background-color: #333;
-    }
-  </style>
+.msg{
+  max-width:70%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:16px;
+}
+
+/* INPUT */
+.inputBar{
+  display:flex;
+  padding:12px;
+  gap:8px;
+}
+
+.inputBar input{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+}
+
+.inputBar button{
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+/* PANEL */
+.panel{
+  display:none;
+  position:absolute;
+  bottom:80px;
+  left:300px;
+  padding:10px;
+  border-radius:12px;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- Header -->
-  <div class="header">
-    StudyGenius AI
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+  <div>
+
+    <!-- LOGO -->
+    <div class="logo">
+      <svg viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00c6ff"/>
+            <stop offset="100%" stop-color="#9333ea"/>
+          </linearGradient>
+        </defs>
+        <polygon points="50,10 85,30 85,70 50,90 15,70 15,30"
+          fill="none" stroke="url(#g)" stroke-width="6"/>
+      </svg>
+    </div>
+
+    <button class="btn">New Chat</button>
+    <button class="btn">Search</button>
+    <button class="btn">Images</button>
+    <button class="btn">Deep Search</button>
+    <button class="btn">Codex</button>
+    <button class="btn">Projects</button>
+
   </div>
 
-  <!-- Chat -->
-  <div class="chat-container" id="chat"></div>
+  <div>
+    Pranab<br>
+    Plan
+  </div>
+</div>
 
-  <!-- Input -->
-  <div class="input-area">
-    <input type="text" id="input" placeholder="Ask anything...">
-    <button onclick="sendMessage()">Send</button>
+<!-- MAIN -->
+<div class="main">
+
+  <div class="topbar">
+    <div>StudyGenius AI ▼</div>
+    <div>Share ⋮</div>
   </div>
 
-  <script>
-    function sendMessage() {
-      const input = document.getElementById("input");
-      const chat = document.getElementById("chat");
+  <div class="chat" id="chat"></div>
 
-      const text = input.value.trim();
-      if (text === "") return;
+  <div class="panel" id="panel">
+    <button>Notes</button>
+    <button>Practice Paper</button>
+    <button>Planner</button>
+  </div>
 
-      // User message
-      const userMsg = document.createElement("div");
-      userMsg.className = "message user";
-      userMsg.innerText = text;
-      chat.appendChild(userMsg);
+  <div class="inputBar">
+    <button onclick="togglePanel()">＋</button>
+    <input id="q" placeholder="Ask anything..." onkeydown="if(event.key==='Enter') send()">
+    <button>🎤</button>
+    <button onclick="send()">➤</button>
+  </div>
 
-      // Fake AI reply (for now)
-      const aiMsg = document.createElement("div");
-      aiMsg.className = "message ai";
-      aiMsg.innerText = "Thinking...";
-      chat.appendChild(aiMsg);
+</div>
 
-      input.value = "";
-      chat.scrollTop = chat.scrollHeight;
-    }
-  </script>
+<script>
+
+/* AUTO DAY/NIGHT */
+let hour = new Date().getHours();
+if(hour >= 6 && hour < 18){
+  document.body.classList.add("light");
+}else{
+  document.body.classList.add("dark");
+}
+
+function togglePanel(){
+  let p=document.getElementById("panel");
+  p.style.display=p.style.display==="block"?"none":"block";
+}
+
+function send(){
+  let q=document.getElementById("q").value;
+  if(!q)return;
+
+  let chat=document.getElementById("chat");
+
+  let user=document.createElement("div");
+  user.className="msg";
+  user.innerText=q;
+  chat.appendChild(user);
+
+  let bot=document.createElement("div");
+  bot.className="msg";
+  bot.innerHTML="Thinking...";
+  chat.appendChild(bot);
+
+  setTimeout(()=>{
+    bot.innerHTML="Answer generated...";
+  },1000);
+
+  document.getElementById("q").value="";
+  chat.scrollTop=chat.scrollHeight;
+}
+</script>
 
 </body>
 </html>
