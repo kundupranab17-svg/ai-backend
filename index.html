@@ -10,34 +10,28 @@ body{
   font-family:'Segoe UI',sans-serif;
   display:flex;
   height:100vh;
-  transition:0.3s;
+  transition:0.4s;
 }
 
-/* DARK MODE */
+/* DARK */
 body.dark{
   background:#0f172a;
   color:white;
 }
 body.dark .sidebar{background:#020617;}
 body.dark .topbar{background:#020617;}
-body.dark .inputBar{background:#020617;}
-body.dark .inputBar input{background:#1e293b;color:white;}
+body.dark input{background:#1e293b;color:white;}
 body.dark .btn{background:#1e293b;color:white;}
-body.dark .msg.bot{background:linear-gradient(135deg,#9333ea,#ec4899);}
-body.dark .msg.user{background:linear-gradient(135deg,#00c6ff,#0072ff);}
 
-/* LIGHT MODE */
+/* LIGHT */
 body.light{
   background:#ffffff;
   color:#111;
 }
 body.light .sidebar{background:#f1f5f9;}
 body.light .topbar{background:#ffffff;}
-body.light .inputBar{background:#f1f5f9;}
-body.light .inputBar input{background:#e2e8f0;color:#111;}
+body.light input{background:#e2e8f0;color:#111;}
 body.light .btn{background:#e2e8f0;color:#111;}
-body.light .msg.bot{background:#e0e7ff;}
-body.light .msg.user{background:#c7d2fe;}
 
 /* SIDEBAR */
 .sidebar{
@@ -49,23 +43,41 @@ body.light .msg.user{background:#c7d2fe;}
 }
 
 /* LOGO */
-.logo svg{
-  width:40px;
-  height:40px;
+.logo{
+  display:flex;
+  justify-content:center;
   margin-bottom:20px;
 }
 
-/* BUTTONS */
-.btn{
+.logoCircle{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:radial-gradient(circle,#00c6ff,#9333ea,#ff7eb3);
   display:flex;
   align-items:center;
-  gap:10px;
-  width:100%;
+  justify-content:center;
+  box-shadow:0 0 20px #9333ea;
+  animation:spin 8s linear infinite;
+}
+
+.logoCircle span{
+  font-weight:bold;
+  color:white;
+}
+
+@keyframes spin{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+/* BUTTON */
+.btn{
   padding:10px;
+  margin:5px 0;
   border:none;
   border-radius:12px;
   cursor:pointer;
-  margin:6px 0;
 }
 
 /* MAIN */
@@ -80,6 +92,31 @@ body.light .msg.user{background:#c7d2fe;}
   display:flex;
   justify-content:space-between;
   padding:12px 20px;
+  align-items:center;
+}
+
+.toggle{
+  width:50px;
+  height:25px;
+  background:#ccc;
+  border-radius:20px;
+  position:relative;
+  cursor:pointer;
+}
+
+.toggleCircle{
+  width:20px;
+  height:20px;
+  background:white;
+  border-radius:50%;
+  position:absolute;
+  top:2.5px;
+  left:3px;
+  transition:0.3s;
+}
+
+.toggle.active .toggleCircle{
+  transform:translateX(25px);
 }
 
 /* CHAT */
@@ -91,29 +128,38 @@ body.light .msg.user{background:#c7d2fe;}
 
 .msg{
   max-width:70%;
-  padding:14px;
+  padding:12px;
   margin:10px 0;
-  border-radius:16px;
+  border-radius:15px;
+}
+
+.user{
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  margin-left:auto;
+}
+
+.bot{
+  background:linear-gradient(135deg,#9333ea,#ff7eb3);
 }
 
 /* INPUT */
 .inputBar{
   display:flex;
-  padding:12px;
+  padding:10px;
   gap:8px;
 }
 
-.inputBar input{
+input{
   flex:1;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-}
-
-.inputBar button{
   padding:12px;
   border:none;
-  border-radius:12px;
+  border-radius:10px;
+}
+
+button{
+  padding:10px;
+  border:none;
+  border-radius:10px;
   cursor:pointer;
 }
 
@@ -123,31 +169,23 @@ body.light .msg.user{background:#c7d2fe;}
   position:absolute;
   bottom:80px;
   left:300px;
+  background:#1e293b;
   padding:10px;
-  border-radius:12px;
+  border-radius:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
 <div class="sidebar">
-
   <div>
 
-    <!-- LOGO -->
+    <!-- NEW LOGO -->
     <div class="logo">
-      <svg viewBox="0 0 100 100">
-        <defs>
-          <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#00c6ff"/>
-            <stop offset="100%" stop-color="#9333ea"/>
-          </linearGradient>
-        </defs>
-        <polygon points="50,10 85,30 85,70 50,90 15,70 15,30"
-          fill="none" stroke="url(#g)" stroke-width="6"/>
-      </svg>
+      <div class="logoCircle">
+        <span>AI</span>
+      </div>
     </div>
 
     <button class="btn">New Chat</button>
@@ -161,16 +199,19 @@ body.light .msg.user{background:#c7d2fe;}
 
   <div>
     Pranab<br>
-    Plan
+    Free Plan
   </div>
 </div>
 
-<!-- MAIN -->
 <div class="main">
 
   <div class="topbar">
     <div>StudyGenius AI ▼</div>
-    <div>Share ⋮</div>
+
+    <!-- TOGGLE -->
+    <div class="toggle" id="toggle" onclick="switchMode()">
+      <div class="toggleCircle"></div>
+    </div>
   </div>
 
   <div class="chat" id="chat"></div>
@@ -192,19 +233,40 @@ body.light .msg.user{background:#c7d2fe;}
 
 <script>
 
-/* AUTO DAY/NIGHT */
-let hour = new Date().getHours();
-if(hour >= 6 && hour < 18){
-  document.body.classList.add("light");
-}else{
+/* AUTO MODE */
+let hour=new Date().getHours();
+let isDark = !(hour>=6 && hour<18);
+
+if(isDark){
   document.body.classList.add("dark");
+  document.getElementById("toggle").classList.add("active");
+}else{
+  document.body.classList.add("light");
 }
 
+/* MANUAL SWITCH */
+function switchMode(){
+  let body=document.body;
+  let toggle=document.getElementById("toggle");
+
+  if(body.classList.contains("dark")){
+    body.classList.remove("dark");
+    body.classList.add("light");
+    toggle.classList.remove("active");
+  }else{
+    body.classList.remove("light");
+    body.classList.add("dark");
+    toggle.classList.add("active");
+  }
+}
+
+/* PANEL */
 function togglePanel(){
   let p=document.getElementById("panel");
   p.style.display=p.style.display==="block"?"none":"block";
 }
 
+/* CHAT */
 function send(){
   let q=document.getElementById("q").value;
   if(!q)return;
@@ -212,17 +274,17 @@ function send(){
   let chat=document.getElementById("chat");
 
   let user=document.createElement("div");
-  user.className="msg";
+  user.className="msg user";
   user.innerText=q;
   chat.appendChild(user);
 
   let bot=document.createElement("div");
-  bot.className="msg";
+  bot.className="msg bot";
   bot.innerHTML="Thinking...";
   chat.appendChild(bot);
 
   setTimeout(()=>{
-    bot.innerHTML="Answer generated...";
+    bot.innerHTML="Smart AI Answer Generated...";
   },1000);
 
   document.getElementById("q").value="";
