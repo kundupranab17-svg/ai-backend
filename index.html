@@ -1,150 +1,231 @@
 <!DOCTYPE html>
-<html>
-<header style="display:flex;align-items:center;gap:10px;justify-content:center;">
-  <div style="
-    width:35px;
-    height:35px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#00c6ff,#0072ff);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-  ">
-    SG
-  </div>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>StudyGenius AI</title>
 
-  <div style="
-    font-size:22px;
-    font-weight:bold;
-    background: linear-gradient(135deg,#00c6ff,#ff7eb3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  ">
-    StudyGenius AI
-  </div>
-</header>
-      text-align: center;
-      padding: 15px;
-      font-size: 22px;
-      font-weight: bold;
-      background: rgba(0,0,0,0.3);
-    }
+<style>
+body {
+  margin:0;
+  font-family: Arial;
+  background:#0f172a;
+  color:white;
+  display:flex;
+  height:100vh;
+}
 
-    #chat {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-    }
+/* SIDEBAR */
+.sidebar {
+  width:260px;
+  background:#020617;
+  padding:15px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
 
-    .msg {
-      max-width: 70%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 15px;
-    }
+.logo {
+  font-size:20px;
+  font-weight:bold;
+  background: linear-gradient(90deg,#00c6ff,#ff7eb3);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
-    .user {
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      margin-left: auto;
-    }
+.menu button {
+  width:100%;
+  margin:5px 0;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#1e293b;
+  color:white;
+  cursor:pointer;
+}
 
-    .bot {
-      background: linear-gradient(135deg, #ff758c, #ff7eb3);
-    }
+.bottom {
+  font-size:14px;
+  opacity:0.8;
+}
 
-    #controls {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px;
-    }
+/* MAIN */
+.main {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
 
-    #modeBtn {
-      padding: 10px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      background: #222;
-      color: white;
-    }
+/* TOP BAR */
+.topbar {
+  padding:10px;
+  display:flex;
+  justify-content:space-between;
+  background:#020617;
+}
 
-    #inputArea {
-      display: flex;
-      padding: 15px;
-      background: rgba(0,0,0,0.4);
-    }
+.plan {
+  cursor:pointer;
+}
 
-    input {
-      flex: 1;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-    }
+/* CHAT */
+.chat {
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+}
 
-    button {
-      margin-left: 10px;
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      background: #00c6ff;
-      color: white;
-      font-weight: bold;
-    }
-  </style>
+.msg {
+  max-width:70%;
+  padding:12px;
+  margin:10px 0;
+  border-radius:15px;
+}
+
+.user {
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  margin-left:auto;
+}
+
+.bot {
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+}
+
+/* INPUT */
+.inputBar {
+  display:flex;
+  padding:10px;
+  background:#020617;
+  align-items:center;
+}
+
+.inputBar input {
+  flex:1;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+}
+
+.inputBar button {
+  margin-left:8px;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.plus { background:#1e293b; color:white; }
+.mic { background:#1e293b; color:white; }
+.send { background:#00c6ff; color:white; }
+
+/* FEATURE PANEL */
+.panel {
+  display:none;
+  position:absolute;
+  bottom:70px;
+  left:300px;
+  background:#1e293b;
+  padding:10px;
+  border-radius:10px;
+}
+
+.panel button {
+  display:block;
+  width:100%;
+  margin:5px 0;
+  padding:8px;
+}
+</style>
 </head>
 
 <body>
 
-<header>StudyGenius AI 🤖</header>
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div>
+    <div class="logo">StudyGenius AI</div>
+    <div class="menu">
+      <button onclick="newChat()">➕ New Chat</button>
+      <button>🔍 Search</button>
+      <button>🖼 Images</button>
+      <button>🧠 Deep Search</button>
+      <button>💻 Codex</button>
+      <button>📁 Projects</button>
+    </div>
+  </div>
 
-<div id="controls">
-  <button id="modeBtn" onclick="toggleMode()">Exam Mode: OFF</button>
+  <div class="bottom">
+    👤 Pranab<br>
+    💎 Free Plan
+  </div>
 </div>
 
-<div id="chat"></div>
+<!-- MAIN -->
+<div class="main">
 
-<div id="inputArea">
-  <input id="question" placeholder="Ask anything...">
-  <button onclick="send()">Send</button>
+  <div class="topbar">
+    <div>StudyGenius AI</div>
+    <div class="plan">⬇ Plans</div>
+  </div>
+
+  <div class="chat" id="chat"></div>
+
+  <!-- FEATURE PANEL -->
+  <div class="panel" id="panel">
+    <button onclick="alert('Notes Generator')">📚 Notes</button>
+    <button onclick="alert('Practice Paper')">📝 Practice Paper</button>
+    <button onclick="alert('Study Planner')">📅 Planner</button>
+    <button onclick="alert('Upload Image')">📸 Upload</button>
+  </div>
+
+  <div class="inputBar">
+    <button class="plus" onclick="togglePanel()">＋</button>
+    <input id="q" placeholder="Ask anything...">
+    <button class="mic">🎤</button>
+    <button class="send" onclick="send()">➡</button>
+  </div>
+
 </div>
 
 <script>
-let examMode = false;
+let examMode = true;
 
-function toggleMode() {
-  examMode = !examMode;
-  document.getElementById("modeBtn").innerText =
-    examMode ? "Exam Mode: ON" : "Exam Mode: OFF";
+function togglePanel() {
+  let p = document.getElementById("panel");
+  p.style.display = p.style.display === "block" ? "none" : "block";
+}
+
+function newChat() {
+  document.getElementById("chat").innerHTML = "";
 }
 
 function send() {
-  let q = document.getElementById("question").value;
-  if(q === "") return;
+  let q = document.getElementById("q").value;
+  if(!q) return;
 
   let chat = document.getElementById("chat");
 
-  let userMsg = document.createElement("div");
-  userMsg.className = "msg user";
-  userMsg.innerText = q;
-  chat.appendChild(userMsg);
+  let user = document.createElement("div");
+  user.className = "msg user";
+  user.innerText = q;
+  chat.appendChild(user);
 
-  let botMsg = document.createElement("div");
-  botMsg.className = "msg bot";
-  botMsg.innerText = "Thinking...";
-  chat.appendChild(botMsg);
+  let bot = document.createElement("div");
+  bot.className = "msg bot";
+  bot.innerHTML = "Thinking...";
+  chat.appendChild(bot);
 
-  setTimeout(() => {
-    if(examMode) {
-      botMsg.innerText =
-        "1. Key Point\n2. Important Concept\n3. Short Explanation\n4. Conclusion";
-    } else {
-      botMsg.innerText =
-        "This is a detailed explanation of your question. It explains the concept clearly with proper understanding and examples.";
-    }
-  }, 1000);
+  setTimeout(()=>{
+    bot.innerHTML =
+      "<b>Answer:</b><br><br>" +
+      "1. Key concept explained.<br>" +
+      "2. Important point.<br>" +
+      "3. Example.<br>" +
+      "4. Conclusion.<br><br>" +
+      "<b>Important Questions:</b><br>" +
+      "- Define concept<br>- Explain process";
+  },1000);
 
-  document.getElementById("question").value = "";
+  document.getElementById("q").value="";
   chat.scrollTop = chat.scrollHeight;
 }
 </script>
