@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    /* RESET */
     * {
       margin: 0;
       padding: 0;
@@ -19,7 +18,7 @@
       color: white;
     }
 
-    /* SPLASH SCREEN */
+    /* SPLASH */
     #splash {
       position: fixed;
       width: 100%;
@@ -32,26 +31,18 @@
     }
 
     #logoAnim {
-      width: 120px;
+      width: 80px;   /* medium splash logo */
       border-radius: 50%;
       animation: zoomFade 1.5s ease forwards;
     }
 
     @keyframes zoomFade {
-      0% {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      50% {
-        transform: scale(1.2);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(1);
-      }
+      0% { transform: scale(0.5); opacity: 0; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
     }
 
-    /* MAIN APP */
+    /* APP */
     #app {
       display: none;
       height: 100vh;
@@ -59,28 +50,41 @@
       flex-direction: column;
     }
 
-    /* TOPBAR */
+    /* FIXED TOPBAR (IMPORTANT) */
     .topbar {
+      height: 50px;                  /* FIXED HEIGHT */
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
       background: #1e293b;
-      padding: 15px;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
       border-bottom: 1px solid #334155;
+      font-size: 16px;
+      font-weight: 500;
     }
 
-    /* CHAT AREA */
+    /* LOGO FIX */
+    .nav-logo {
+      width: 28px;                  /* PERFECT SIZE */
+      height: 28px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    /* CHAT */
     .chat {
       flex: 1;
-      padding: 20px;
+      padding: 15px;
       overflow-y: auto;
+      display: flex;
+      flex-direction: column;
     }
 
     .message {
       margin-bottom: 10px;
-      padding: 10px 15px;
+      padding: 10px 14px;
       border-radius: 10px;
       max-width: 70%;
+      font-size: 14px;
     }
 
     .user {
@@ -93,7 +97,7 @@
       align-self: flex-start;
     }
 
-    /* INPUT AREA */
+    /* INPUT */
     .input-area {
       display: flex;
       padding: 10px;
@@ -107,6 +111,7 @@
       border: none;
       border-radius: 5px;
       outline: none;
+      font-size: 14px;
     }
 
     .input-area button {
@@ -124,15 +129,19 @@
 
 <body>
 
-  <!-- SPLASH SCREEN -->
+  <!-- SPLASH -->
   <div id="splash">
-    <img src="logo.png" id="logoAnim" alt="logo">
+    <img src="logo.png" id="logoAnim">
   </div>
 
-  <!-- MAIN APP -->
+  <!-- APP -->
   <div id="app">
-    
-    <div class="topbar">StudyGenius AI</div>
+
+    <!-- FIXED TOPBAR -->
+    <div class="topbar">
+      <img src="logo.png" class="nav-logo">
+      <span>StudyGenius AI</span>
+    </div>
 
     <div class="chat" id="chat"></div>
 
@@ -144,36 +153,32 @@
   </div>
 
   <script>
-    // SPLASH LOGIC
+    // SPLASH FIX
     window.onload = function () {
       setTimeout(() => {
         document.getElementById("splash").style.display = "none";
         document.getElementById("app").style.display = "flex";
-      }, 1800);
+      }, 1500);
     };
 
-    // CHAT FUNCTION
     function sendMessage() {
       const input = document.getElementById("userInput");
       const chat = document.getElementById("chat");
 
       if (input.value.trim() === "") return;
 
-      // User message
       const userMsg = document.createElement("div");
       userMsg.className = "message user";
       userMsg.innerText = input.value;
       chat.appendChild(userMsg);
 
-      // Bot message
       const botMsg = document.createElement("div");
       botMsg.className = "message bot";
       botMsg.innerText = "Thinking...";
       chat.appendChild(botMsg);
 
-      // Fake response
       setTimeout(() => {
-        botMsg.innerText = "This is a demo response for: " + input.value;
+        botMsg.innerText = "Response for: " + input.value;
       }, 1000);
 
       input.value = "";
