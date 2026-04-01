@@ -28,21 +28,13 @@ body{
 .logoBox{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:12px;
   margin-bottom:20px;
 }
 
-.logoShape{
-  width:35px;
-  height:35px;
-  border-radius:10px;
-  background:linear-gradient(135deg,#00c6ff,#ff7eb3);
-  box-shadow:0 0 15px #00c6ff;
-}
-
-.logoText{
-  font-size:18px;
-  font-weight:bold;
+.logoSVG{
+  width:36px;
+  height:36px;
 }
 
 /* BUTTONS */
@@ -69,7 +61,8 @@ body{
   width:16px;
   height:16px;
   background:white;
-  border-radius:3px;
+  border-radius:4px;
+  opacity:0.9;
 }
 
 /* MAIN */
@@ -79,7 +72,6 @@ body{
   flex-direction:column;
 }
 
-/* TOPBAR */
 .topbar{
   padding:10px;
   display:flex;
@@ -87,7 +79,6 @@ body{
   background:#020617;
 }
 
-/* CHAT */
 .chat{
   flex:1;
   padding:20px;
@@ -155,9 +146,25 @@ body{
 <!-- SIDEBAR -->
 <div class="sidebar">
   <div>
+
     <div class="logoBox">
-      <div class="logoShape"></div>
-      <div class="logoText">StudyGenius</div>
+
+      <!-- REAL DYNAMIC SVG LOGO -->
+      <svg class="logoSVG" viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00c6ff"/>
+            <stop offset="100%" stop-color="#ff7eb3"/>
+          </linearGradient>
+        </defs>
+
+        <polygon points="50,5 90,30 90,70 50,95 10,70 10,30"
+          fill="none"
+          stroke="url(#grad1)"
+          stroke-width="6"/>
+      </svg>
+
+      <div>StudyGenius</div>
     </div>
 
     <button class="iconBtn"><div class="icon"></div> New Chat</button>
@@ -166,6 +173,7 @@ body{
     <button class="iconBtn"><div class="icon"></div> Deep Search</button>
     <button class="iconBtn"><div class="icon"></div> Codex</button>
     <button class="iconBtn"><div class="icon"></div> Projects</button>
+
   </div>
 
   <div>
@@ -185,10 +193,10 @@ body{
   <div class="chat" id="chat"></div>
 
   <div class="panel" id="panel">
-    <button>📚 Notes</button>
-    <button>📝 Practice Paper</button>
-    <button>📅 Planner</button>
-    <button>📸 Upload</button>
+    <button>Notes</button>
+    <button>Practice Paper</button>
+    <button>Planner</button>
+    <button>Upload</button>
   </div>
 
   <div class="inputBar">
