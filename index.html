@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -17,27 +17,35 @@ body{
 body.dark{background:#343541;color:white;}
 body.light{background:#ffffff;color:#111;}
 
+/* SIDEBAR */
 .sidebar{
   width:260px;
   background:#202123;
-  padding:10px;
+  padding:12px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
 }
 body.light .sidebar{background:#f7f7f8;}
 
-.logoBox img{
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  object-fit:cover;
-  padding:6px;
-  background:#0f172a;
-  box-shadow:0 0 15px rgba(0, 200, 255, 0.6);
+/* LOGO FIXED PERFECT */
+.logoBox{
+  display:flex;
+  justify-content:center;
+  margin-bottom:20px;
 }
 
-/* BUTTON */
+.logoBox img{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  object-fit:cover;
+  padding:8px;
+  background:#0f172a;
+  box-shadow:0 0 18px rgba(0,200,255,0.6);
+}
+
+/* BUTTONS */
 .btn{
   padding:10px;
   border:none;
@@ -51,6 +59,7 @@ body.light .sidebar{background:#f7f7f8;}
 .btn:hover{background:#2a2b32;}
 body.light .btn:hover{background:#e5e5e5;}
 
+/* MAIN */
 .main{
   flex:1;
   display:flex;
@@ -115,9 +124,8 @@ button{
 <div class="sidebar">
   <div>
 
-    <!-- FINAL LOGO -->
+    <!-- LOGO -->
     <div class="logoBox">
-      <!-- PUT YOUR IMAGE FILE NAME HERE -->
       <img src="logo.png" alt="logo">
     </div>
 
@@ -127,7 +135,10 @@ button{
 
   </div>
 
-  <div>Pranab<br>Free Plan</div>
+  <div>
+    Pranab<br>
+    Free Plan
+  </div>
 </div>
 
 <!-- MAIN -->
