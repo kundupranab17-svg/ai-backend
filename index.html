@@ -7,7 +7,7 @@
 <style>
 body{
   margin:0;
-  font-family: Arial;
+  font-family:'Segoe UI',sans-serif;
   background:#0f172a;
   color:white;
   display:flex;
@@ -24,45 +24,36 @@ body{
   justify-content:space-between;
 }
 
-/* LOGO */
-.logoBox{
-  display:flex;
-  align-items:center;
-  gap:12px;
+/* LOGO (PURE SVG PATTERN) */
+.logo{
   margin-bottom:20px;
 }
-
-.logoSVG{
-  width:36px;
-  height:36px;
+.logo svg{
+  width:42px;
+  height:42px;
 }
 
 /* BUTTONS */
-.iconBtn{
+.btn{
   display:flex;
   align-items:center;
   gap:10px;
   width:100%;
   padding:10px;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
   background:#1e293b;
   color:white;
   cursor:pointer;
-  margin:5px 0;
+  margin:6px 0;
   transition:0.2s;
 }
-
-.iconBtn:hover{
+.btn:hover{
   background:#334155;
 }
-
 .icon{
-  width:16px;
-  height:16px;
-  background:white;
-  border-radius:4px;
-  opacity:0.9;
+  width:18px;
+  height:18px;
 }
 
 /* MAIN */
@@ -72,71 +63,87 @@ body{
   flex-direction:column;
 }
 
+/* TOPBAR */
 .topbar{
-  padding:10px;
   display:flex;
   justify-content:space-between;
+  align-items:center;
+  padding:12px 20px;
   background:#020617;
+  border-bottom:1px solid #1e293b;
+}
+.title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:bold;
+}
+.plan{
+  font-size:14px;
+  opacity:0.7;
+  cursor:pointer;
+}
+.actions{
+  display:flex;
+  gap:15px;
 }
 
+/* CHAT */
 .chat{
   flex:1;
   padding:20px;
   overflow-y:auto;
 }
-
 .msg{
   max-width:70%;
-  padding:12px;
+  padding:14px;
   margin:10px 0;
-  border-radius:15px;
+  border-radius:16px;
 }
-
 .user{
   background:linear-gradient(135deg,#00c6ff,#0072ff);
   margin-left:auto;
 }
-
 .bot{
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  background:linear-gradient(135deg,#9333ea,#ec4899);
 }
 
 /* INPUT */
 .inputBar{
   display:flex;
-  padding:10px;
+  padding:12px;
   background:#020617;
-  align-items:center;
+  gap:8px;
 }
-
 .inputBar input{
   flex:1;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:#1e293b;
+  color:white;
+}
+.inputBar button{
   padding:12px;
   border:none;
-  border-radius:10px;
-}
-
-.inputBar button{
-  margin-left:8px;
-  padding:10px;
-  border:none;
-  border-radius:10px;
+  border-radius:12px;
+  background:#1e293b;
+  color:white;
   cursor:pointer;
 }
-
-.plus{background:#1e293b;color:white;}
-.mic{background:#1e293b;color:white;}
-.send{background:#00c6ff;color:white;}
+.send{
+  background:linear-gradient(135deg,#00c6ff,#ff7eb3);
+}
 
 /* PANEL */
 .panel{
   display:none;
   position:absolute;
-  bottom:70px;
+  bottom:80px;
   left:300px;
   background:#1e293b;
   padding:10px;
-  border-radius:10px;
+  border-radius:12px;
 }
 </style>
 </head>
@@ -147,38 +154,33 @@ body{
 <div class="sidebar">
   <div>
 
-    <div class="logoBox">
-
-      <!-- REAL DYNAMIC SVG LOGO -->
-      <svg class="logoSVG" viewBox="0 0 100 100">
+    <!-- PURE CHATGPT STYLE ABSTRACT LOGO -->
+    <div class="logo">
+      <svg viewBox="0 0 100 100">
         <defs>
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#00c6ff"/>
-            <stop offset="100%" stop-color="#ff7eb3"/>
+            <stop offset="100%" stop-color="#9333ea"/>
           </linearGradient>
         </defs>
-
-        <polygon points="50,5 90,30 90,70 50,95 10,70 10,30"
-          fill="none"
-          stroke="url(#grad1)"
-          stroke-width="6"/>
+        <path d="M50 10 L80 30 L80 70 L50 90 L20 70 L20 30 Z"
+          fill="none" stroke="url(#g)" stroke-width="6"/>
+        <circle cx="50" cy="50" r="10" fill="url(#g)"/>
       </svg>
-
-      <div>StudyGenius</div>
     </div>
 
-    <button class="iconBtn"><div class="icon"></div> New Chat</button>
-    <button class="iconBtn"><div class="icon"></div> Search</button>
-    <button class="iconBtn"><div class="icon"></div> Images</button>
-    <button class="iconBtn"><div class="icon"></div> Deep Search</button>
-    <button class="iconBtn"><div class="icon"></div> Codex</button>
-    <button class="iconBtn"><div class="icon"></div> Projects</button>
+    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><path fill="white" d="M12 5v14M5 12h14"/></svg>New Chat</button>
+    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="white" fill="none"/><line x1="16" y1="16" x2="22" y2="22" stroke="white"/></svg>Search</button>
+    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" stroke="white" fill="none"/></svg>Images</button>
+    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white"/></svg>Deep Search</button>
+    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" stroke="white" fill="none"/></svg>Codex</button>
+    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16v16H4z" stroke="white" fill="none"/></svg>Projects</button>
 
   </div>
 
   <div>
-    👤 Pranab<br>
-    💎 Free Plan
+    Pranab<br>
+    Free Plan
   </div>
 </div>
 
@@ -186,8 +188,15 @@ body{
 <div class="main">
 
   <div class="topbar">
-    <div>StudyGenius AI</div>
-    <div>⬇ Plans</div>
+    <div class="title">
+      StudyGenius AI
+      <span class="plan">▼ Plans</span>
+    </div>
+
+    <div class="actions">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="white" d="M4 12h16M12 4l8 8-8 8"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2" fill="white"/><circle cx="12" cy="12" r="2" fill="white"/><circle cx="12" cy="19" r="2" fill="white"/></svg>
+    </div>
   </div>
 
   <div class="chat" id="chat"></div>
@@ -200,10 +209,10 @@ body{
   </div>
 
   <div class="inputBar">
-    <button class="plus" onclick="togglePanel()">＋</button>
-    <input id="q" placeholder="Ask anything...">
-    <button class="mic">🎤</button>
-    <button class="send" onclick="send()">➡</button>
+    <button onclick="togglePanel()">＋</button>
+    <input id="q" placeholder="Ask anything..." onkeydown="if(event.key==='Enter') send()">
+    <button>🎤</button>
+    <button class="send" onclick="send()">➤</button>
   </div>
 
 </div>
@@ -233,12 +242,10 @@ function send(){
   setTimeout(()=>{
     bot.innerHTML=
       "<b>Answer:</b><br><br>"+
-      "1. Key concept explained.<br>"+
-      "2. Important point.<br>"+
-      "3. Example.<br>"+
-      "4. Conclusion.<br><br>"+
-      "<b>Important Questions:</b><br>"+
-      "- Define concept<br>- Explain process";
+      "1. Key concept<br>"+
+      "2. Important point<br>"+
+      "3. Example<br>"+
+      "4. Conclusion";
   },1000);
 
   document.getElementById("q").value="";
