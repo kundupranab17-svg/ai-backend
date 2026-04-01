@@ -7,80 +7,39 @@
 <style>
 body{
   margin:0;
-  font-family:'Segoe UI',sans-serif;
+  font-family:system-ui;
   display:flex;
   height:100vh;
-  transition:0.4s;
+  transition:0.3s;
 }
 
-/* DARK */
-body.dark{
-  background:#0f172a;
-  color:white;
-}
-body.dark .sidebar{background:#020617;}
-body.dark .topbar{background:#020617;}
-body.dark input{background:#1e293b;color:white;}
-body.dark .btn{background:#1e293b;color:white;}
+/* THEMES */
+body.dark{background:#343541;color:white;}
+body.light{background:#ffffff;color:#111;}
 
-/* LIGHT */
-body.light{
-  background:#ffffff;
-  color:#111;
-}
-body.light .sidebar{background:#f1f5f9;}
-body.light .topbar{background:#ffffff;}
-body.light input{background:#e2e8f0;color:#111;}
-body.light .btn{background:#e2e8f0;color:#111;}
-
-/* SIDEBAR */
 .sidebar{
   width:260px;
-  padding:15px;
+  background:#202123;
+  padding:10px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
 }
+body.light .sidebar{background:#f7f7f8;}
 
-/* LOGO */
-.logo{
-  display:flex;
-  justify-content:center;
-  margin-bottom:20px;
-}
-
-.logoCircle{
-  width:60px;
-  height:60px;
-  border-radius:50%;
-  background:radial-gradient(circle,#00c6ff,#9333ea,#ff7eb3);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 0 20px #9333ea;
-  animation:spin 8s linear infinite;
-}
-
-.logoCircle span{
-  font-weight:bold;
-  color:white;
-}
-
-@keyframes spin{
-  0%{transform:rotate(0deg);}
-  100%{transform:rotate(360deg);}
-}
-
-/* BUTTON */
 .btn{
   padding:10px;
-  margin:5px 0;
   border:none;
-  border-radius:12px;
+  border-radius:8px;
+  margin:4px 0;
+  background:transparent;
+  color:inherit;
+  text-align:left;
   cursor:pointer;
 }
+.btn:hover{background:#2a2b32;}
+body.light .btn:hover{background:#e5e5e5;}
 
-/* MAIN */
 .main{
   flex:1;
   display:flex;
@@ -91,32 +50,20 @@ body.light .btn{background:#e2e8f0;color:#111;}
 .topbar{
   display:flex;
   justify-content:space-between;
-  padding:12px 20px;
   align-items:center;
+  padding:10px 20px;
+  border-bottom:1px solid #444;
+}
+body.light .topbar{border-bottom:1px solid #ddd;}
+
+.title{
+  font-weight:600;
 }
 
-.toggle{
-  width:50px;
-  height:25px;
-  background:#ccc;
-  border-radius:20px;
-  position:relative;
+.actions{
+  display:flex;
+  gap:15px;
   cursor:pointer;
-}
-
-.toggleCircle{
-  width:20px;
-  height:20px;
-  background:white;
-  border-radius:50%;
-  position:absolute;
-  top:2.5px;
-  left:3px;
-  transition:0.3s;
-}
-
-.toggle.active .toggleCircle{
-  transform:translateX(25px);
 }
 
 /* CHAT */
@@ -127,169 +74,117 @@ body.light .btn{background:#e2e8f0;color:#111;}
 }
 
 .msg{
-  max-width:70%;
-  padding:12px;
-  margin:10px 0;
-  border-radius:15px;
-}
-
-.user{
-  background:linear-gradient(135deg,#00c6ff,#0072ff);
-  margin-left:auto;
-}
-
-.bot{
-  background:linear-gradient(135deg,#9333ea,#ff7eb3);
+  max-width:700px;
+  margin:10px auto;
 }
 
 /* INPUT */
 .inputBar{
+  padding:15px;
+  border-top:1px solid #444;
+}
+body.light .inputBar{border-top:1px solid #ddd;}
+
+.inputBox{
   display:flex;
-  padding:10px;
-  gap:8px;
+  gap:10px;
 }
 
 input{
   flex:1;
   padding:12px;
+  border-radius:8px;
   border:none;
-  border-radius:10px;
 }
 
 button{
   padding:10px;
   border:none;
-  border-radius:10px;
+  border-radius:8px;
   cursor:pointer;
 }
 
-/* PANEL */
-.panel{
-  display:none;
-  position:absolute;
-  bottom:80px;
-  left:300px;
-  background:#1e293b;
-  padding:10px;
-  border-radius:10px;
+/* TOGGLE */
+.toggle{
+  cursor:pointer;
 }
 </style>
 </head>
 
-<body>
+<body class="dark">
 
+<!-- SIDEBAR -->
 <div class="sidebar">
   <div>
-
-    <!-- NEW LOGO -->
-    <div class="logo">
-      <div class="logoCircle">
-        <span>AI</span>
-      </div>
-    </div>
-
-    <button class="btn">New Chat</button>
+    <button class="btn">+ New Chat</button>
     <button class="btn">Search</button>
-    <button class="btn">Images</button>
-    <button class="btn">Deep Search</button>
-    <button class="btn">Codex</button>
-    <button class="btn">Projects</button>
-
+    <button class="btn">Library</button>
   </div>
 
-  <div>
-    Pranab<br>
-    Free Plan
-  </div>
+  <div>Pranab<br>Free Plan</div>
 </div>
 
+<!-- MAIN -->
 <div class="main">
 
   <div class="topbar">
-    <div>StudyGenius AI ▼</div>
+    <div class="title">StudyGenius AI ▼</div>
 
-    <!-- TOGGLE -->
-    <div class="toggle" id="toggle" onclick="switchMode()">
-      <div class="toggleCircle"></div>
+    <div class="actions">
+      <span onclick="toggleTheme()">🌗</span>
+      <span>🔗</span>
+      <span>⋮</span>
     </div>
   </div>
 
   <div class="chat" id="chat"></div>
 
-  <div class="panel" id="panel">
-    <button>Notes</button>
-    <button>Practice Paper</button>
-    <button>Planner</button>
-  </div>
-
   <div class="inputBar">
-    <button onclick="togglePanel()">＋</button>
-    <input id="q" placeholder="Ask anything..." onkeydown="if(event.key==='Enter') send()">
-    <button>🎤</button>
-    <button onclick="send()">➤</button>
+    <div class="inputBox">
+      <input id="q" placeholder="Message StudyGenius..." onkeydown="if(event.key==='Enter') send()">
+      <button onclick="send()">Send</button>
+    </div>
   </div>
 
 </div>
 
 <script>
 
-/* AUTO MODE */
-let hour=new Date().getHours();
-let isDark = !(hour>=6 && hour<18);
-
-if(isDark){
-  document.body.classList.add("dark");
-  document.getElementById("toggle").classList.add("active");
-}else{
-  document.body.classList.add("light");
-}
-
-/* MANUAL SWITCH */
-function switchMode(){
+function toggleTheme(){
   let body=document.body;
-  let toggle=document.getElementById("toggle");
-
   if(body.classList.contains("dark")){
     body.classList.remove("dark");
     body.classList.add("light");
-    toggle.classList.remove("active");
   }else{
     body.classList.remove("light");
     body.classList.add("dark");
-    toggle.classList.add("active");
   }
 }
 
-/* PANEL */
-function togglePanel(){
-  let p=document.getElementById("panel");
-  p.style.display=p.style.display==="block"?"none":"block";
-}
-
-/* CHAT */
 function send(){
   let q=document.getElementById("q").value;
   if(!q)return;
 
   let chat=document.getElementById("chat");
 
-  let user=document.createElement("div");
-  user.className="msg user";
-  user.innerText=q;
-  chat.appendChild(user);
+  let msg=document.createElement("div");
+  msg.className="msg";
+  msg.innerText="You: "+q;
+  chat.appendChild(msg);
 
   let bot=document.createElement("div");
-  bot.className="msg bot";
-  bot.innerHTML="Thinking...";
+  bot.className="msg";
+  bot.innerText="AI: Thinking...";
   chat.appendChild(bot);
 
   setTimeout(()=>{
-    bot.innerHTML="Smart AI Answer Generated...";
+    bot.innerText="AI: Answer generated.";
   },1000);
 
   document.getElementById("q").value="";
   chat.scrollTop=chat.scrollHeight;
 }
+
 </script>
 
 </body>
