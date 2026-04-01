@@ -1,257 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>StudyGenius AI</title>
+  <meta charset="UTF-8">
+  <title>StudyGenius AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body{
-  margin:0;
-  font-family:'Segoe UI',sans-serif;
-  background:#0f172a;
-  color:white;
-  display:flex;
-  height:100vh;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
 
-/* SIDEBAR */
-.sidebar{
-  width:260px;
-  background:#020617;
-  padding:15px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
+    /* Header */
+    .header {
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border-bottom: 1px solid #e5e5e5;
+    }
 
-/* LOGO (PURE SVG PATTERN) */
-.logo{
-  margin-bottom:20px;
-}
-.logo svg{
-  width:42px;
-  height:42px;
-}
+    /* Chat area */
+    .chat-container {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
 
-/* BUTTONS */
-.btn{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:12px;
-  background:#1e293b;
-  color:white;
-  cursor:pointer;
-  margin:6px 0;
-  transition:0.2s;
-}
-.btn:hover{
-  background:#334155;
-}
-.icon{
-  width:18px;
-  height:18px;
-}
+    .message {
+      max-width: 60%;
+      padding: 12px 16px;
+      margin: 10px 0;
+      border-radius: 10px;
+      line-height: 1.5;
+    }
 
-/* MAIN */
-.main{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-}
+    .user {
+      background-color: #f1f1f1;
+      margin-left: auto;
+    }
 
-/* TOPBAR */
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 20px;
-  background:#020617;
-  border-bottom:1px solid #1e293b;
-}
-.title{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-weight:bold;
-}
-.plan{
-  font-size:14px;
-  opacity:0.7;
-  cursor:pointer;
-}
-.actions{
-  display:flex;
-  gap:15px;
-}
+    .ai {
+      background-color: #e8f0fe;
+      margin-right: auto;
+    }
 
-/* CHAT */
-.chat{
-  flex:1;
-  padding:20px;
-  overflow-y:auto;
-}
-.msg{
-  max-width:70%;
-  padding:14px;
-  margin:10px 0;
-  border-radius:16px;
-}
-.user{
-  background:linear-gradient(135deg,#00c6ff,#0072ff);
-  margin-left:auto;
-}
-.bot{
-  background:linear-gradient(135deg,#9333ea,#ec4899);
-}
+    /* Input area */
+    .input-area {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #e5e5e5;
+    }
 
-/* INPUT */
-.inputBar{
-  display:flex;
-  padding:12px;
-  background:#020617;
-  gap:8px;
-}
-.inputBar input{
-  flex:1;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  background:#1e293b;
-  color:white;
-}
-.inputBar button{
-  padding:12px;
-  border:none;
-  border-radius:12px;
-  background:#1e293b;
-  color:white;
-  cursor:pointer;
-}
-.send{
-  background:linear-gradient(135deg,#00c6ff,#ff7eb3);
-}
+    input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+    }
 
-/* PANEL */
-.panel{
-  display:none;
-  position:absolute;
-  bottom:80px;
-  left:300px;
-  background:#1e293b;
-  padding:10px;
-  border-radius:12px;
-}
-</style>
+    button {
+      margin-left: 10px;
+      padding: 12px 18px;
+      border: none;
+      background-color: black;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div>
-
-    <!-- PURE CHATGPT STYLE ABSTRACT LOGO -->
-    <div class="logo">
-      <svg viewBox="0 0 100 100">
-        <defs>
-          <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#00c6ff"/>
-            <stop offset="100%" stop-color="#9333ea"/>
-          </linearGradient>
-        </defs>
-        <path d="M50 10 L80 30 L80 70 L50 90 L20 70 L20 30 Z"
-          fill="none" stroke="url(#g)" stroke-width="6"/>
-        <circle cx="50" cy="50" r="10" fill="url(#g)"/>
-      </svg>
-    </div>
-
-    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><path fill="white" d="M12 5v14M5 12h14"/></svg>New Chat</button>
-    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="white" fill="none"/><line x1="16" y1="16" x2="22" y2="22" stroke="white"/></svg>Search</button>
-    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="5" stroke="white" fill="none"/></svg>Images</button>
-    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white"/></svg>Deep Search</button>
-    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" stroke="white" fill="none"/></svg>Codex</button>
-    <button class="btn"><svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16v16H4z" stroke="white" fill="none"/></svg>Projects</button>
-
+  <!-- Header -->
+  <div class="header">
+    StudyGenius AI
   </div>
 
-  <div>
-    Pranab<br>
-    Free Plan
-  </div>
-</div>
+  <!-- Chat -->
+  <div class="chat-container" id="chat"></div>
 
-<!-- MAIN -->
-<div class="main">
-
-  <div class="topbar">
-    <div class="title">
-      StudyGenius AI
-      <span class="plan">▼ Plans</span>
-    </div>
-
-    <div class="actions">
-      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="white" d="M4 12h16M12 4l8 8-8 8"/></svg>
-      <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2" fill="white"/><circle cx="12" cy="12" r="2" fill="white"/><circle cx="12" cy="19" r="2" fill="white"/></svg>
-    </div>
+  <!-- Input -->
+  <div class="input-area">
+    <input type="text" id="input" placeholder="Ask anything...">
+    <button onclick="sendMessage()">Send</button>
   </div>
 
-  <div class="chat" id="chat"></div>
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("input");
+      const chat = document.getElementById("chat");
 
-  <div class="panel" id="panel">
-    <button>Notes</button>
-    <button>Practice Paper</button>
-    <button>Planner</button>
-    <button>Upload</button>
-  </div>
+      const text = input.value.trim();
+      if (text === "") return;
 
-  <div class="inputBar">
-    <button onclick="togglePanel()">＋</button>
-    <input id="q" placeholder="Ask anything..." onkeydown="if(event.key==='Enter') send()">
-    <button>🎤</button>
-    <button class="send" onclick="send()">➤</button>
-  </div>
+      // User message
+      const userMsg = document.createElement("div");
+      userMsg.className = "message user";
+      userMsg.innerText = text;
+      chat.appendChild(userMsg);
 
-</div>
+      // Fake AI reply (for now)
+      const aiMsg = document.createElement("div");
+      aiMsg.className = "message ai";
+      aiMsg.innerText = "Thinking...";
+      chat.appendChild(aiMsg);
 
-<script>
-function togglePanel(){
-  let p=document.getElementById("panel");
-  p.style.display=p.style.display==="block"?"none":"block";
-}
-
-function send(){
-  let q=document.getElementById("q").value;
-  if(!q)return;
-
-  let chat=document.getElementById("chat");
-
-  let user=document.createElement("div");
-  user.className="msg user";
-  user.innerText=q;
-  chat.appendChild(user);
-
-  let bot=document.createElement("div");
-  bot.className="msg bot";
-  bot.innerHTML="Thinking...";
-  chat.appendChild(bot);
-
-  setTimeout(()=>{
-    bot.innerHTML=
-      "<b>Answer:</b><br><br>"+
-      "1. Key concept<br>"+
-      "2. Important point<br>"+
-      "3. Example<br>"+
-      "4. Conclusion";
-  },1000);
-
-  document.getElementById("q").value="";
-  chat.scrollTop=chat.scrollHeight;
-}
-</script>
+      input.value = "";
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
 
 </body>
 </html>
