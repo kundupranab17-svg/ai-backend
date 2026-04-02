@@ -15,7 +15,7 @@ body{
   color:white;
 }
 
-/* 🔥 SPLASH */
+/* 🔥 SIMPLE SPLASH (OLD ONE) */
 #splash{
   position:fixed;
   width:100%;
@@ -28,16 +28,23 @@ body{
 }
 
 #logoAnim{
-  width:90px;
-  height:90px;
+  width:80px;
+  height:80px;
   border-radius:50%;
-  object-fit:cover;
+  overflow:hidden;
   animation:zoomFade 1.5s ease forwards;
-  box-shadow:0 0 30px rgba(0,255,255,0.9);
+  box-shadow:0 0 25px cyan;
+}
+
+#logoAnim img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.3);
 }
 
 @keyframes zoomFade{
-  0%{transform:scale(0.6);opacity:0;}
+  0%{transform:scale(0.5);opacity:0;}
   50%{transform:scale(1.2);opacity:1;}
   100%{transform:scale(1);}
 }
@@ -67,22 +74,19 @@ body{
   margin-bottom:12px;
 }
 
-.logoBox img{
+.logoWrap{
   width:36px;
   height:36px;
   border-radius:50%;
-  object-fit:cover;
-  box-shadow:
-    0 0 10px rgba(0,255,255,0.7),
-    0 0 20px rgba(0,200,255,0.5);
-  transition:0.3s;
+  overflow:hidden;
+  box-shadow:0 0 12px cyan;
 }
 
-.logoBox img:hover{
-  transform:scale(1.1);
-  box-shadow:
-    0 0 18px rgba(0,255,255,1),
-    0 0 35px rgba(0,200,255,0.7);
+.logoWrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.3);
 }
 
 /* BUTTONS */
@@ -146,6 +150,7 @@ body{
 .inputBar{
   padding:10px;
   border-top:1px solid #444;
+  position:relative;
 }
 
 .inputBox{
@@ -176,24 +181,53 @@ body{
 .iconBtn:hover{
   background:#2a2b32;
 }
+
+/* 🔥 + MENU */
+.plusMenu{
+  position:absolute;
+  bottom:60px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#2a2b32;
+  padding:10px;
+  border-radius:10px;
+  display:none;
+  flex-direction:column;
+  width:220px;
+}
+
+.plusMenu button{
+  background:none;
+  border:none;
+  color:white;
+  text-align:left;
+  padding:8px;
+  cursor:pointer;
+}
+.plusMenu button:hover{
+  background:#3a3b42;
+}
 </style>
 </head>
 
 <body>
 
-<!-- 🔥 SPLASH -->
+<!-- SPLASH -->
 <div id="splash">
-  <img src="logo.png" id="logoAnim">
+  <div id="logoAnim">
+    <img src="logo.png">
+  </div>
 </div>
 
-<!-- 🔥 APP -->
+<!-- APP -->
 <div id="app">
 
 <div class="sidebar">
   <div>
-
     <div class="logoBox">
-      <img src="logo.png">
+      <div class="logoWrap">
+        <img src="logo.png">
+      </div>
     </div>
 
     <button class="btn">💬 Chat</button>
@@ -201,7 +235,6 @@ body{
     <button class="btn">📝 Exam</button>
     <button class="btn">📊 Practice</button>
     <button class="btn">📅 Planner</button>
-
   </div>
 
   <div>
@@ -219,9 +252,22 @@ body{
 <div class="chat" id="chat"></div>
 
 <div class="inputBar">
+
+  <!-- + MENU -->
+  <div class="plusMenu" id="plusMenu">
+    <button>📷 Upload Photo</button>
+    <button>📄 Upload File</button>
+    <button>📘 Generate Notes</button>
+    <button>📝 Exam Mode</button>
+    <button>📊 Practice Paper</button>
+    <button>📅 Study Planner</button>
+    <button>🌍 Multi Language</button>
+    <button>⋯ More</button>
+  </div>
+
   <div class="inputBox">
 
-    <span class="iconBtn">➕</span>
+    <span class="iconBtn" onclick="toggleMenu()">➕</span>
 
     <input id="q" placeholder="Message StudyGenius..."
     onkeydown="if(event.key==='Enter') send()">
@@ -242,6 +288,11 @@ window.onload=function(){
     document.getElementById("app").style.display="flex";
   },1500);
 };
+
+function toggleMenu(){
+  let menu=document.getElementById("plusMenu");
+  menu.style.display = menu.style.display==="flex" ? "none" : "flex";
+}
 
 function send(){
   let q=document.getElementById("q").value;
