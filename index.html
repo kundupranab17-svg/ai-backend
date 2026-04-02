@@ -15,7 +15,7 @@ body{
   color:white;
 }
 
-/* 🔥 SIMPLE SPLASH (OLD ONE) */
+/* SPLASH */
 #splash{
   position:fixed;
   width:100%;
@@ -33,7 +33,6 @@ body{
   border-radius:50%;
   overflow:hidden;
   animation:zoomFade 1.5s ease forwards;
-  box-shadow:0 0 25px cyan;
 }
 
 #logoAnim img{
@@ -45,7 +44,6 @@ body{
 
 @keyframes zoomFade{
   0%{transform:scale(0.5);opacity:0;}
-  50%{transform:scale(1.2);opacity:1;}
   100%{transform:scale(1);}
 }
 
@@ -53,7 +51,6 @@ body{
 #app{
   display:none;
   width:100%;
-  height:100vh;
   display:flex;
 }
 
@@ -68,39 +65,20 @@ body{
 }
 
 /* LOGO */
-.logoBox{
-  display:flex;
-  justify-content:center;
-  margin-bottom:12px;
-}
-
 .logoWrap{
   width:36px;
   height:36px;
   border-radius:50%;
   overflow:hidden;
-  box-shadow:0 0 12px cyan;
+  margin:auto;
+  box-shadow:0 0 10px cyan;
 }
-
 .logoWrap img{
   width:100%;
   height:100%;
   object-fit:cover;
   transform:scale(1.3);
 }
-
-/* BUTTONS */
-.btn{
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  margin:4px 0;
-  background:transparent;
-  color:white;
-  text-align:left;
-  cursor:pointer;
-}
-.btn:hover{background:#2a2b32;}
 
 /* MAIN */
 .main{
@@ -109,46 +87,16 @@ body{
   flex-direction:column;
 }
 
-/* TOPBAR */
-.topbar{
-  height:50px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 15px;
-  border-bottom:1px solid #444;
-}
-
 /* CHAT */
 .chat{
   flex:1;
   padding:20px;
   overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-}
-
-/* MESSAGES */
-.message{
-  max-width:70%;
-  padding:12px;
-  margin:6px 0;
-  border-radius:12px;
-}
-
-.user{
-  align-self:flex-end;
-  background:linear-gradient(45deg,#3b82f6,#06b6d4);
-}
-
-.bot{
-  align-self:flex-start;
-  background:#2a2b32;
 }
 
 /* INPUT */
 .inputBar{
-  padding:10px;
+  padding:12px;
   border-top:1px solid #444;
   position:relative;
 }
@@ -156,55 +104,63 @@ body{
 .inputBox{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
   max-width:750px;
   margin:auto;
   background:#40414f;
-  padding:8px;
-  border-radius:10px;
+  padding:10px;
+  border-radius:12px;
 }
 
-.inputBox input{
+input{
   flex:1;
-  background:transparent;
+  background:none;
   border:none;
   color:white;
   outline:none;
 }
 
-/* ICON BUTTONS */
-.iconBtn{
+/* ICON */
+.icon{
   cursor:pointer;
   padding:6px;
   border-radius:6px;
 }
-.iconBtn:hover{
+.icon:hover{
   background:#2a2b32;
 }
 
-/* 🔥 + MENU */
-.plusMenu{
+/* 🔥 REAL POPUP MENU */
+.menu{
   position:absolute;
-  bottom:60px;
-  left:50%;
-  transform:translateX(-50%);
+  bottom:70px;
+  left:calc(50% - 350px);
   background:#2a2b32;
+  border-radius:12px;
   padding:10px;
-  border-radius:10px;
+  width:260px;
   display:none;
   flex-direction:column;
-  width:220px;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
+  animation:fadeUp 0.2s ease;
 }
 
-.plusMenu button{
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.menu button{
   background:none;
   border:none;
   color:white;
+  padding:10px;
   text-align:left;
-  padding:8px;
+  border-radius:8px;
   cursor:pointer;
 }
-.plusMenu button:hover{
+
+.menu button:hover{
   background:#3a3b42;
 }
 </style>
@@ -219,61 +175,41 @@ body{
   </div>
 </div>
 
-<!-- APP -->
 <div id="app">
 
 <div class="sidebar">
-  <div>
-    <div class="logoBox">
-      <div class="logoWrap">
-        <img src="logo.png">
-      </div>
-    </div>
-
-    <button class="btn">💬 Chat</button>
-    <button class="btn">📘 Notes</button>
-    <button class="btn">📝 Exam</button>
-    <button class="btn">📊 Practice</button>
-    <button class="btn">📅 Planner</button>
-  </div>
-
-  <div>
-    Pranab<br>Free Plan
+  <div class="logoWrap">
+    <img src="logo.png">
   </div>
 </div>
 
 <div class="main">
 
-<div class="topbar">
-  <div>StudyGenius AI</div>
-  <div>⚙️</div>
-</div>
-
 <div class="chat" id="chat"></div>
 
 <div class="inputBar">
 
-  <!-- + MENU -->
-  <div class="plusMenu" id="plusMenu">
+  <!-- MENU -->
+  <div class="menu" id="menu">
     <button>📷 Upload Photo</button>
     <button>📄 Upload File</button>
-    <button>📘 Generate Notes</button>
-    <button>📝 Exam Mode</button>
-    <button>📊 Practice Paper</button>
-    <button>📅 Study Planner</button>
-    <button>🌍 Multi Language</button>
-    <button>⋯ More</button>
+    <button>📘 Generate Notes (AI Notes Generator)</button>
+    <button>📝 Exam Mode (Answer Writing Mode)</button>
+    <button>📊 Practice Paper Generator</button>
+    <button>📅 Study Planner (Smart Routine Builder)</button>
+    <button>🌍 Multi Language Support</button>
+    <button>⋯ More Options</button>
   </div>
 
   <div class="inputBox">
 
-    <span class="iconBtn" onclick="toggleMenu()">➕</span>
+    <span class="icon" onclick="toggleMenu(event)">➕</span>
 
     <input id="q" placeholder="Message StudyGenius..."
     onkeydown="if(event.key==='Enter') send()">
 
-    <span class="iconBtn">🎤</span>
-    <span class="iconBtn" onclick="send()">➤</span>
+    <span class="icon">🎤</span>
+    <span class="icon" onclick="send()">➤</span>
 
   </div>
 </div>
@@ -282,17 +218,24 @@ body{
 </div>
 
 <script>
+
 window.onload=function(){
   setTimeout(()=>{
-    document.getElementById("splash").style.display="none";
-    document.getElementById("app").style.display="flex";
-  },1500);
+    splash.style.display="none";
+    app.style.display="flex";
+  },1200);
 };
 
-function toggleMenu(){
-  let menu=document.getElementById("plusMenu");
-  menu.style.display = menu.style.display==="flex" ? "none" : "flex";
+function toggleMenu(e){
+  e.stopPropagation();
+  let m=document.getElementById("menu");
+  m.style.display = m.style.display==="flex" ? "none" : "flex";
 }
+
+/* CLOSE ON OUTSIDE CLICK */
+document.addEventListener("click",()=>{
+  document.getElementById("menu").style.display="none";
+});
 
 function send(){
   let q=document.getElementById("q").value;
@@ -300,20 +243,11 @@ function send(){
 
   let chat=document.getElementById("chat");
 
-  let user=document.createElement("div");
-  user.className="message user";
-  user.innerText=q;
-  chat.appendChild(user);
-
-  let bot=document.createElement("div");
-  bot.className="message bot";
-  bot.innerText="Thinking...";
-  chat.appendChild(bot);
-
-  setTimeout(()=>{bot.innerText="AI Response";},800);
+  let div=document.createElement("div");
+  div.innerText="You: "+q;
+  chat.appendChild(div);
 
   document.getElementById("q").value="";
-  chat.scrollTop=chat.scrollHeight;
 }
 </script>
 
