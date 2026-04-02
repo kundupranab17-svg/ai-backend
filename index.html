@@ -3,151 +3,282 @@
 <head>
 <meta charset="UTF-8">
 <title>StudyGenius AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body{
   margin:0;
-  background:#0f172a;
-  color:white;
   font-family:system-ui;
-  overflow:hidden;
+  display:flex;
+  height:100vh;
+  background:#343541;
+  color:white;
 }
 
-/* 🎬 SPLASH */
+/* 🔥 SPLASH */
 #splash{
   position:fixed;
   width:100%;
   height:100%;
+  background:#0f172a;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
+  z-index:9999;
 }
 
-/* STEP TEXT */
-#sceneText{
-  position:absolute;
-  top:40%;
-  font-size:20px;
-  opacity:0;
-  animation:fadeText 2s forwards;
-}
-
-@keyframes fadeText{
-  0%{opacity:0;}
-  100%{opacity:1;}
-}
-
-/* LOGO */
-#logo{
+#logoAnim{
   width:90px;
   height:90px;
   border-radius:50%;
   overflow:hidden;
-  transform:scale(0.5);
-  opacity:0;
+  animation:zoomFade 1.5s ease forwards;
+  box-shadow:0 0 30px rgba(0,255,255,0.9);
 }
 
-/* LOGO IMG */
-#logo img{
+#logoAnim img{
   width:100%;
   height:100%;
   object-fit:cover;
-  transform:scale(1.3);
+  transform:scale(1.25); /* 🔥 REMOVE GAP */
 }
 
-/* STEP 2: ZOOM + TRANSFORM */
-.animateLogo{
-  animation:brainAnim 2s forwards;
+@keyframes zoomFade{
+  0%{transform:scale(0.6);opacity:0;}
+  50%{transform:scale(1.2);opacity:1;}
+  100%{transform:scale(1);}
 }
 
-@keyframes brainAnim{
-  0%{
-    transform:scale(0.5);
-    opacity:0;
-  }
-  50%{
-    transform:scale(1.4);
-    opacity:1;
-    box-shadow:0 0 40px cyan;
-  }
-  100%{
-    transform:scale(1);
-    box-shadow:0 0 20px cyan;
-  }
+/* APP */
+#app{
+  display:none;
+  width:100%;
+  height:100vh;
+  display:flex;
 }
 
-/* STEP 3: MOVE UP */
-.moveUp{
-  animation:moveUp 1s forwards;
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:#202123;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 }
 
-@keyframes moveUp{
-  to{
-    transform:translateY(-60px) scale(0.8);
-  }
+/* LOGO */
+.logoBox{
+  display:flex;
+  justify-content:center;
+  margin-bottom:12px;
 }
 
-/* APP NAME */
-#appName{
-  margin-top:20px;
-  font-size:26px;
-  font-weight:bold;
-  opacity:0;
+.logoWrap{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow:
+    0 0 12px rgba(0,255,255,0.8),
+    0 0 25px rgba(0,200,255,0.6);
 }
 
-.showName{
-  animation:fadeIn 1s forwards;
+.logoWrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.3); /* 🔥 MAIN FIX */
+  transition:0.3s;
 }
 
-@keyframes fadeIn{
-  to{opacity:1;}
+.logoWrap:hover img{
+  transform:scale(1.4);
+}
+
+/* BUTTONS */
+.btn{
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  margin:4px 0;
+  background:transparent;
+  color:white;
+  text-align:left;
+  cursor:pointer;
+}
+.btn:hover{background:#2a2b32;}
+
+/* MAIN */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+/* TOPBAR */
+.topbar{
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  border-bottom:1px solid #444;
+}
+
+/* CHAT */
+.chat{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+
+/* MESSAGES */
+.message{
+  max-width:70%;
+  padding:12px;
+  margin:6px 0;
+  border-radius:12px;
+}
+
+.user{
+  align-self:flex-end;
+  background:linear-gradient(45deg,#3b82f6,#06b6d4);
+}
+
+.bot{
+  align-self:flex-start;
+  background:#2a2b32;
+}
+
+/* INPUT */
+.inputBar{
+  padding:10px;
+  border-top:1px solid #444;
+}
+
+.inputBox{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  max-width:750px;
+  margin:auto;
+  background:#40414f;
+  padding:8px;
+  border-radius:10px;
+}
+
+.inputBox input{
+  flex:1;
+  background:transparent;
+  border:none;
+  color:white;
+  outline:none;
+}
+
+/* ICON BUTTONS */
+.iconBtn{
+  cursor:pointer;
+  padding:6px;
+  border-radius:6px;
+}
+.iconBtn:hover{
+  background:#2a2b32;
 }
 </style>
 </head>
 
 <body>
 
+<!-- 🔥 SPLASH -->
 <div id="splash">
-
-  <div id="sceneText">A student solving problems...</div>
-
-  <div id="logo">
+  <div id="logoAnim">
     <img src="logo.png">
   </div>
+</div>
 
-  <div id="appName">StudyGenius AI</div>
+<!-- 🔥 APP -->
+<div id="app">
 
+<div class="sidebar">
+  <div>
+
+    <div class="logoBox">
+      <div class="logoWrap">
+        <img src="logo.png">
+      </div>
+    </div>
+
+    <button class="btn">💬 Chat</button>
+    <button class="btn">📘 Notes</button>
+    <button class="btn">📝 Exam</button>
+    <button class="btn">📊 Practice</button>
+    <button class="btn">📅 Planner</button>
+
+  </div>
+
+  <div>
+    Pranab<br>Free Plan
+  </div>
+</div>
+
+<div class="main">
+
+<div class="topbar">
+  <div>StudyGenius AI</div>
+  <div>⚙️</div>
+</div>
+
+<div class="chat" id="chat"></div>
+
+<div class="inputBar">
+  <div class="inputBox">
+
+    <span class="iconBtn">➕</span>
+
+    <input id="q" placeholder="Message StudyGenius..."
+    onkeydown="if(event.key==='Enter') send()">
+
+    <span class="iconBtn">🎤</span>
+    <span class="iconBtn" onclick="send()">➤</span>
+
+  </div>
+</div>
+
+</div>
 </div>
 
 <script>
+window.onload=function(){
+  setTimeout(()=>{
+    document.getElementById("splash").style.display="none";
+    document.getElementById("app").style.display="flex";
+  },1500);
+};
 
-/* STEP FLOW */
+function send(){
+  let q=document.getElementById("q").value;
+  if(!q) return;
 
-setTimeout(()=>{
-  document.getElementById("sceneText").innerText="Zooming into brain...";
-},2000);
+  let chat=document.getElementById("chat");
 
-setTimeout(()=>{
-  let logo=document.getElementById("logo");
-  logo.classList.add("animateLogo");
-},3000);
+  let user=document.createElement("div");
+  user.className="message user";
+  user.innerText=q;
+  chat.appendChild(user);
 
-setTimeout(()=>{
-  document.getElementById("sceneText").innerText="Transforming into Genius AI...";
-},3500);
+  let bot=document.createElement("div");
+  bot.className="message bot";
+  bot.innerText="Thinking...";
+  chat.appendChild(bot);
 
-setTimeout(()=>{
-  let logo=document.getElementById("logo");
-  logo.classList.add("moveUp");
-  document.getElementById("appName").classList.add("showName");
-},5000);
+  setTimeout(()=>{bot.innerText="AI Response";},800);
 
-setTimeout(()=>{
-  // END SPLASH
-  document.body.innerHTML="<h1 style='text-align:center;margin-top:40vh;'>App Starts Here 🚀</h1>";
-},7000);
-
+  document.getElementById("q").value="";
+  chat.scrollTop=chat.scrollHeight;
+}
 </script>
 
 </body>
