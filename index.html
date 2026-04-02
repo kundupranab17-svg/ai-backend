@@ -98,7 +98,6 @@ body{
 .inputBar{
   padding:12px;
   border-top:1px solid #444;
-  position:relative;
 }
 
 .inputBox{
@@ -110,6 +109,7 @@ body{
   background:#40414f;
   padding:10px;
   border-radius:12px;
+  position:relative;
 }
 
 input{
@@ -125,29 +125,26 @@ input{
   cursor:pointer;
   padding:6px;
   border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 .icon:hover{
   background:#2a2b32;
 }
 
-/* 🔥 REAL POPUP MENU */
+/* 🔥 MENU EXACT ABOVE + */
 .menu{
   position:absolute;
-  bottom:70px;
-  left:calc(50% - 350px);
+  bottom:50px;
+  left:0;
   background:#2a2b32;
   border-radius:12px;
   padding:10px;
-  width:260px;
+  width:250px;
   display:none;
   flex-direction:column;
   box-shadow:0 0 20px rgba(0,0,0,0.5);
-  animation:fadeUp 0.2s ease;
-}
-
-@keyframes fadeUp{
-  from{opacity:0; transform:translateY(10px);}
-  to{opacity:1; transform:translateY(0);}
 }
 
 .menu button{
@@ -159,7 +156,6 @@ input{
   border-radius:8px;
   cursor:pointer;
 }
-
 .menu button:hover{
   background:#3a3b42;
 }
@@ -189,26 +185,37 @@ input{
 
 <div class="inputBar">
 
-  <!-- MENU -->
-  <div class="menu" id="menu">
-    <button>📷 Upload Photo</button>
-    <button>📄 Upload File</button>
-    <button>📘 Generate Notes (AI Notes Generator)</button>
-    <button>📝 Exam Mode (Answer Writing Mode)</button>
-    <button>📊 Practice Paper Generator</button>
-    <button>📅 Study Planner (Smart Routine Builder)</button>
-    <button>🌍 Multi Language Support</button>
-    <button>⋯ More Options</button>
-  </div>
-
   <div class="inputBox">
 
-    <span class="icon" onclick="toggleMenu(event)">➕</span>
+    <!-- ➕ WRAPPER -->
+    <div style="position:relative;">
+      <span class="icon" onclick="toggleMenu(event)">➕</span>
+
+      <!-- MENU -->
+      <div class="menu" id="menu">
+        <button>📷 Upload Photo</button>
+        <button>📄 Upload File</button>
+        <button>📘 Generate Notes</button>
+        <button>📝 Exam Mode</button>
+        <button>📊 Practice Paper</button>
+        <button>📅 Study Planner</button>
+        <button>🌍 Multi Language</button>
+        <button>⋯ More</button>
+      </div>
+    </div>
 
     <input id="q" placeholder="Message StudyGenius..."
     onkeydown="if(event.key==='Enter') send()">
 
-    <span class="icon">🎤</span>
+    <!-- 🎤 REAL MIC ICON -->
+    <span class="icon">
+      <svg width="18" height="18" fill="white" viewBox="0 0 24 24">
+        <path d="M12 15a3 3 0 003-3V5a3 3 0 10-6 0v7a3 3 0 003 3z"/>
+        <path d="M19 11a7 7 0 01-14 0H3a9 9 0 0018 0h-2z"/>
+        <path d="M12 20v4"/>
+      </svg>
+    </span>
+
     <span class="icon" onclick="send()">➤</span>
 
   </div>
@@ -232,7 +239,6 @@ function toggleMenu(e){
   m.style.display = m.style.display==="flex" ? "none" : "flex";
 }
 
-/* CLOSE ON OUTSIDE CLICK */
 document.addEventListener("click",()=>{
   document.getElementById("menu").style.display="none";
 });
