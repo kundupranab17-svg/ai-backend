@@ -47,13 +47,6 @@ body{
   100%{transform:scale(1);}
 }
 
-/* APP */
-#app{
-  display:none;
-  width:100%;
-  display:flex;
-}
-
 /* SIDEBAR */
 .sidebar{
   width:260px;
@@ -64,21 +57,38 @@ body{
   justify-content:space-between;
 }
 
-/* LOGO */
+.logoBox{
+  display:flex;
+  justify-content:center;
+  margin-bottom:12px;
+}
+
 .logoWrap{
   width:36px;
   height:36px;
   border-radius:50%;
   overflow:hidden;
-  margin:auto;
-  box-shadow:0 0 10px cyan;
+  box-shadow:0 0 12px cyan;
 }
+
 .logoWrap img{
   width:100%;
   height:100%;
   object-fit:cover;
   transform:scale(1.3);
 }
+
+.btn{
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  margin:4px 0;
+  background:transparent;
+  color:white;
+  text-align:left;
+  cursor:pointer;
+}
+.btn:hover{background:#2a2b32;}
 
 /* MAIN */
 .main{
@@ -87,29 +97,58 @@ body{
   flex-direction:column;
 }
 
+/* TOPBAR */
+.topbar{
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  border-bottom:1px solid #444;
+}
+
 /* CHAT */
 .chat{
   flex:1;
   padding:20px;
   overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+}
+
+/* MESSAGES */
+.message{
+  max-width:70%;
+  padding:12px;
+  margin:6px 0;
+  border-radius:12px;
+}
+
+.user{
+  align-self:flex-end;
+  background:linear-gradient(45deg,#3b82f6,#06b6d4);
+}
+
+.bot{
+  align-self:flex-start;
+  background:#2a2b32;
 }
 
 /* INPUT */
 .inputBar{
-  padding:12px;
+  padding:10px;
   border-top:1px solid #444;
 }
 
 .inputBox{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:8px;
   max-width:750px;
   margin:auto;
   background:#40414f;
-  padding:10px;
-  border-radius:12px;
-  position:relative;
+  padding:8px;
+  border-radius:10px;
 }
 
 input{
@@ -125,40 +164,33 @@ input{
   cursor:pointer;
   padding:6px;
   border-radius:6px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
 .icon:hover{
   background:#2a2b32;
 }
 
-/* 🔥 MENU EXACT ABOVE + */
+/* MENU */
 .menu{
   position:absolute;
-  bottom:50px;
+  bottom:60px;
   left:0;
   background:#2a2b32;
-  border-radius:12px;
+  border-radius:10px;
   padding:10px;
-  width:250px;
   display:none;
   flex-direction:column;
-  box-shadow:0 0 20px rgba(0,0,0,0.5);
+  width:230px;
 }
 
 .menu button{
   background:none;
   border:none;
   color:white;
-  padding:10px;
   text-align:left;
-  border-radius:8px;
+  padding:8px;
   cursor:pointer;
 }
-.menu button:hover{
-  background:#3a3b42;
-}
+.menu button:hover{background:#3a3b42;}
 </style>
 </head>
 
@@ -171,15 +203,38 @@ input{
   </div>
 </div>
 
-<div id="app">
+<div id="app" style="display:none; width:100%; display:flex;">
 
+<!-- SIDEBAR -->
 <div class="sidebar">
-  <div class="logoWrap">
-    <img src="logo.png">
+  <div>
+
+    <div class="logoBox">
+      <div class="logoWrap">
+        <img src="logo.png">
+      </div>
+    </div>
+
+    <button class="btn">💬 Chat</button>
+    <button class="btn">📘 Notes</button>
+    <button class="btn">📝 Exam</button>
+    <button class="btn">📊 Practice</button>
+    <button class="btn">📅 Planner</button>
+
+  </div>
+
+  <div>
+    Pranab<br>Free Plan
   </div>
 </div>
 
+<!-- MAIN -->
 <div class="main">
+
+<div class="topbar">
+  <div>StudyGenius AI ▼</div>
+  <div>⚙️</div>
+</div>
 
 <div class="chat" id="chat"></div>
 
@@ -187,11 +242,10 @@ input{
 
   <div class="inputBox">
 
-    <!-- ➕ WRAPPER -->
+    <!-- + BUTTON -->
     <div style="position:relative;">
       <span class="icon" onclick="toggleMenu(event)">➕</span>
 
-      <!-- MENU -->
       <div class="menu" id="menu">
         <button>📷 Upload Photo</button>
         <button>📄 Upload File</button>
@@ -207,12 +261,11 @@ input{
     <input id="q" placeholder="Message StudyGenius..."
     onkeydown="if(event.key==='Enter') send()">
 
-    <!-- 🎤 REAL MIC ICON -->
+    <!-- MIC ICON -->
     <span class="icon">
       <svg width="18" height="18" fill="white" viewBox="0 0 24 24">
         <path d="M12 15a3 3 0 003-3V5a3 3 0 10-6 0v7a3 3 0 003 3z"/>
         <path d="M19 11a7 7 0 01-14 0H3a9 9 0 0018 0h-2z"/>
-        <path d="M12 20v4"/>
       </svg>
     </span>
 
@@ -228,8 +281,8 @@ input{
 
 window.onload=function(){
   setTimeout(()=>{
-    splash.style.display="none";
-    app.style.display="flex";
+    document.getElementById("splash").style.display="none";
+    document.getElementById("app").style.display="flex";
   },1200);
 };
 
@@ -249,9 +302,17 @@ function send(){
 
   let chat=document.getElementById("chat");
 
-  let div=document.createElement("div");
-  div.innerText="You: "+q;
-  chat.appendChild(div);
+  let user=document.createElement("div");
+  user.className="message user";
+  user.innerText=q;
+  chat.appendChild(user);
+
+  let bot=document.createElement("div");
+  bot.className="message bot";
+  bot.innerText="Thinking...";
+  chat.appendChild(bot);
+
+  setTimeout(()=>{bot.innerText="AI Response";},800);
 
   document.getElementById("q").value="";
 }
