@@ -7,9 +7,9 @@
 
 <style>
 
-/* 🔥 THEMES */
+/* THEMES */
 body.dark{
-  background:#343541;
+  background:#181818;
   color:white;
 }
 body.light{
@@ -128,6 +128,8 @@ body.light .topbar{border-bottom:1px solid #ddd;}
   display:flex;
   flex-direction:column;
 }
+body.dark .chat{background:#181818;}
+body.light .chat{background:#ffffff;}
 
 /* MESSAGES */
 .message{
@@ -144,11 +146,11 @@ body.light .topbar{border-bottom:1px solid #ddd;}
 
 .bot{
   align-self:flex-start;
-  background:#2a2b32;
 }
+body.dark .bot{background:#242424;}
 body.light .bot{background:#f0f0f0;}
 
-/* INPUT BAR (CHATGPT STYLE) */
+/* INPUT BAR */
 .inputBar{
   padding:12px;
   border-top:1px solid #444;
@@ -161,10 +163,10 @@ body.light .inputBar{border-top:1px solid #ddd;}
   gap:10px;
   max-width:750px;
   margin:auto;
-  background:#40414f;
   padding:12px;
   border-radius:14px;
 }
+body.dark .inputBox{background:#2a2a2a;}
 body.light .inputBox{background:#f7f7f8;}
 
 input{
@@ -298,10 +300,7 @@ body.light .menu button:hover{background:#eee;}
 
     <!-- MIC -->
     <span class="icon" id="mic">
-      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 15a3 3 0 003-3V5a3 3 0 10-6 0v7a3 3 0 003 3z"/>
-        <path d="M19 11a7 7 0 01-14 0H3a9 9 0 0018 0h-2z"/>
-      </svg>
+      🎤
     </span>
 
     <!-- SEND -->
@@ -334,7 +333,6 @@ document.addEventListener("click",()=>{
   document.getElementById("menu").style.display="none";
 });
 
-/* MIC ↔ SEND */
 function toggleButtons(){
   let input=document.getElementById("q").value;
   let mic=document.getElementById("mic");
@@ -349,7 +347,6 @@ function toggleButtons(){
   }
 }
 
-/* SEND */
 function send(){
   let q=document.getElementById("q").value;
   if(!q) return;
@@ -365,7 +362,6 @@ function send(){
   toggleButtons();
 }
 
-/* THEME */
 function toggleTheme(){
   let body=document.body;
   body.classList.toggle("dark");
