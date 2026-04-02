@@ -22,7 +22,6 @@ body{
   font-family:system-ui;
   display:flex;
   height:100vh;
-  transition:0.3s;
 }
 
 /* SPLASH */
@@ -53,7 +52,7 @@ body{
 }
 
 @keyframes zoomFade{
-  0%{transform:scale(0.5);opacity:0;}
+  0%{transform:scale(0.6);opacity:0;}
   100%{transform:scale(1);}
 }
 
@@ -68,17 +67,12 @@ body{
 }
 body.light .sidebar{background:#f7f7f8;}
 
-.logoBox{
-  display:flex;
-  justify-content:center;
-  margin-bottom:12px;
-}
-
 .logoWrap{
-  width:36px;
-  height:36px;
+  width:38px;
+  height:38px;
   border-radius:50%;
   overflow:hidden;
+  margin:auto;
   box-shadow:0 0 12px cyan;
 }
 
@@ -125,11 +119,8 @@ body.light .topbar{border-bottom:1px solid #ddd;}
   flex:1;
   padding:20px;
   overflow-y:auto;
-  display:flex;
-  flex-direction:column;
 }
 body.dark .chat{background:#181818;}
-body.light .chat{background:#ffffff;}
 
 /* MESSAGES */
 .message{
@@ -138,36 +129,34 @@ body.light .chat{background:#ffffff;}
   margin:6px 0;
   border-radius:12px;
 }
-
 .user{
-  align-self:flex-end;
+  margin-left:auto;
   background:linear-gradient(45deg,#3b82f6,#06b6d4);
 }
-
-.bot{
-  align-self:flex-start;
+body.dark .bot{
+  background:#242424;
 }
-body.dark .bot{background:#242424;}
-body.light .bot{background:#f0f0f0;}
 
-/* INPUT BAR */
+/* 🔥 CHATGPT STYLE INPUT */
 .inputBar{
-  padding:12px;
-  border-top:1px solid #444;
+  padding:14px;
+  border-top:1px solid #333;
 }
-body.light .inputBar{border-top:1px solid #ddd;}
 
 .inputBox{
   display:flex;
   align-items:center;
   gap:10px;
-  max-width:750px;
+  max-width:800px;
   margin:auto;
-  padding:12px;
-  border-radius:14px;
+  background:#2a2a2a;
+  border-radius:18px;
+  padding:12px 14px;
 }
-body.dark .inputBox{background:#2a2a2a;}
-body.light .inputBox{background:#f7f7f8;}
+
+body.light .inputBox{
+  background:#f7f7f8;
+}
 
 input{
   flex:1;
@@ -185,39 +174,39 @@ input{
   border-radius:6px;
 }
 .icon:hover{
-  background:#2a2b32;
+  background:#333;
 }
-body.light .icon:hover{background:#e5e5e5;}
 
 /* MENU */
 .menu{
   position:absolute;
-  bottom:60px;
+  bottom:55px;
   left:0;
-  background:#2a2b32;
-  border-radius:10px;
+  background:#2a2a2a;
+  border-radius:12px;
   padding:10px;
   display:none;
   flex-direction:column;
   width:230px;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
 }
-body.light .menu{background:#fff;}
-
 .menu button{
   background:none;
   border:none;
-  color:inherit;
+  color:white;
+  padding:10px;
   text-align:left;
-  padding:8px;
+  border-radius:8px;
   cursor:pointer;
 }
-.menu button:hover{background:#3a3b42;}
-body.light .menu button:hover{background:#eee;}
+.menu button:hover{
+  background:#3a3a3a;
+}
 
 /* SEND BUTTON */
 .sendBtn{
-  width:32px;
-  height:32px;
+  width:34px;
+  height:34px;
   border-radius:50%;
   background:#10a37f;
   display:flex;
@@ -225,7 +214,6 @@ body.light .menu button:hover{background:#eee;}
   justify-content:center;
   cursor:pointer;
 }
-
 .hidden{display:none;}
 
 </style>
@@ -233,7 +221,6 @@ body.light .menu button:hover{background:#eee;}
 
 <body class="dark">
 
-<!-- SPLASH -->
 <div id="splash">
   <div id="logoAnim">
     <img src="logo.png">
@@ -245,11 +232,8 @@ body.light .menu button:hover{background:#eee;}
 <!-- SIDEBAR -->
 <div class="sidebar">
   <div>
-
-    <div class="logoBox">
-      <div class="logoWrap">
-        <img src="logo.png">
-      </div>
+    <div class="logoWrap">
+      <img src="logo.png">
     </div>
 
     <button class="btn">💬 Chat</button>
@@ -257,7 +241,6 @@ body.light .menu button:hover{background:#eee;}
     <button class="btn">📝 Exam</button>
     <button class="btn">📊 Practice</button>
     <button class="btn">📅 Planner</button>
-
   </div>
 
   <div>
@@ -276,10 +259,9 @@ body.light .menu button:hover{background:#eee;}
 <div class="chat" id="chat"></div>
 
 <div class="inputBar">
-
   <div class="inputBox">
 
-    <!-- + BUTTON -->
+    <!-- + -->
     <div style="position:relative;">
       <span class="icon" onclick="toggleMenu(event)">➕</span>
 
@@ -299,14 +281,10 @@ body.light .menu button:hover{background:#eee;}
     oninput="toggleButtons()" onkeydown="if(event.key==='Enter') send()">
 
     <!-- MIC -->
-    <span class="icon" id="mic">
-      🎤
-    </span>
+    <span class="icon" id="mic">🎤</span>
 
     <!-- SEND -->
-    <div class="sendBtn hidden" id="sendBtn" onclick="send()">
-      ➤
-    </div>
+    <div class="sendBtn hidden" id="sendBtn" onclick="send()">➤</div>
 
   </div>
 </div>
@@ -316,7 +294,7 @@ body.light .menu button:hover{background:#eee;}
 
 <script>
 
-window.onload=function(){
+window.onload=()=>{
   setTimeout(()=>{
     splash.style.display="none";
     app.style.display="flex";
@@ -334,38 +312,26 @@ document.addEventListener("click",()=>{
 });
 
 function toggleButtons(){
-  let input=document.getElementById("q").value;
-  let mic=document.getElementById("mic");
-  let sendBtn=document.getElementById("sendBtn");
-
-  if(input.trim()!==""){
-    mic.classList.add("hidden");
-    sendBtn.classList.remove("hidden");
-  }else{
-    mic.classList.remove("hidden");
-    sendBtn.classList.add("hidden");
-  }
+  let input=q.value.trim();
+  mic.style.display = input ? "none" : "block";
+  sendBtn.style.display = input ? "flex" : "none";
 }
 
 function send(){
-  let q=document.getElementById("q").value;
-  if(!q) return;
+  if(!q.value) return;
 
-  let chat=document.getElementById("chat");
+  let msg=document.createElement("div");
+  msg.className="message user";
+  msg.innerText=q.value;
+  chat.appendChild(msg);
 
-  let user=document.createElement("div");
-  user.className="message user";
-  user.innerText=q;
-  chat.appendChild(user);
-
-  document.getElementById("q").value="";
+  q.value="";
   toggleButtons();
 }
 
 function toggleTheme(){
-  let body=document.body;
-  body.classList.toggle("dark");
-  body.classList.toggle("light");
+  document.body.classList.toggle("dark");
+  document.body.classList.toggle("light");
 }
 </script>
 
