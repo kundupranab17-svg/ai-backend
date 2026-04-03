@@ -41,6 +41,7 @@ body{
   height:100%;
   object-fit:cover;
   transform:scale(1.3);
+  image-rendering:auto;
 }
 
 @keyframes zoomFade{
@@ -64,34 +65,37 @@ body.light .sidebar{background:#f7f7f8;}
   width:70px;
 }
 
-/* TOP LOGO ROW */
+/* TOP ROW FIX (PERFECT ALIGN LIKE CHATGPT) */
 .logoRow{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  margin-bottom:10px;
 }
 
-/* LOGO LEFT FIX */
+/* SMALL CRISP LOGO */
 .logoWrap{
-  width:38px;
-  height:38px;
+  width:28px;
+  height:28px;
   border-radius:50%;
   overflow:hidden;
-  margin-bottom:15px;
-  box-shadow:0 0 12px cyan;
 }
 .logoWrap img{
   width:100%;
   height:100%;
   object-fit:cover;
-  transform:scale(1.3);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
-/* SIDEBAR TOGGLE BUTTON */
+/* TOGGLE BUTTON (CHATGPT STYLE ALIGN) */
 .toggleBtn{
   cursor:pointer;
   padding:6px;
   border-radius:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 .toggleBtn:hover{background:#2a2b32;}
 body.light .toggleBtn:hover{background:#e5e5e5;}
@@ -227,7 +231,7 @@ input{
 <div class="sidebar" id="sidebar">
   <div>
 
-    <!-- UPDATED LOGO ROW -->
+    <!-- FIXED PERFECT ALIGN -->
     <div class="logoRow">
       <div class="logoWrap">
         <img src="logo.png">
@@ -264,8 +268,8 @@ input{
       <span class="icon" onclick="toggleMenu(event)">➕</span>
 
       <div class="menu" id="menu">
-        <button>Upload Photo</button>
-        <button>Upload File</button>
+        <button><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/></svg>Upload Photo</button>
+        <button><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/></svg>Upload File</button>
         <button>Generate Notes</button>
         <button>Exam Mode</button>
         <button>Practice Paper</button>
@@ -282,7 +286,6 @@ input{
     <span class="icon">
       <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12 14a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3z"/>
-        <path d="M19 11a7 7 0 01-14 0H3a9 9 0 0018 0h-2z"/>
       </svg>
     </span>
 
@@ -354,7 +357,6 @@ function toggleTheme(){
   document.body.classList.toggle("light");
 }
 
-/* NEW FUNCTION */
 function toggleSidebar(){
   document.getElementById("sidebar").classList.toggle("collapsed");
 }
