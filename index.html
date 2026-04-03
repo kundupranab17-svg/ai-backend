@@ -48,7 +48,7 @@ body{
   100%{transform:scale(1);}
 }
 
-/* SIDEBAR (ONLY YOUR VERSION) */
+/* SIDEBAR */
 .sidebar{
   width:220px;
   background:#202123;
@@ -58,6 +58,11 @@ body{
   justify-content:space-between;
 }
 body.light .sidebar{background:#f7f7f8;}
+
+/* ✅ COLLAPSE FIX */
+.sidebar.collapsed{
+  width:70px;
+}
 
 .logoRow{
   display:flex;
@@ -227,9 +232,11 @@ input{
       <div class="logoWrap">
         <img src="logo.png">
       </div>
-      <div class="toggleBtn">☰</div>
+      <!-- ✅ FIXED BUTTON -->
+      <div class="toggleBtn" onclick="toggleSidebar()">☰</div>
     </div>
 
+    <!-- SAME CONTENT -->
     <button class="btn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>New chat</button>
     <button class="btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/></svg>Search chats</button>
     <button class="btn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/></svg>Images</button>
@@ -244,7 +251,6 @@ input{
 </div>
 
 <div class="main">
-
 <div class="topbar">
   <div>StudyGenius AI ▼</div>
   <div class="icon" onclick="toggleTheme()">🌗</div>
@@ -257,22 +263,9 @@ input{
 
     <div style="position:relative;">
       <span class="icon" onclick="toggleMenu(event)">➕</span>
-
-      <!-- ✅ FULL MENU RESTORED -->
-      <div class="menu" id="menu">
-        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="14"/></svg>Upload Photo</button>
-        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2h9l5 5v15H6z"/></svg>Upload File</button>
-        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="4" width="16" height="16"/></svg>Generate Notes</button>
-        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16v4H4z"/></svg>Exam Mode</button>
-        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 13h16"/></svg>Practice Paper</button>
-        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>Study Planner</button>
-        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>Multi Language</button>
-        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>More</button>
-      </div>
-
+      <div class="menu" id="menu"></div>
     </div>
 
-    <!-- ORIGINAL INPUT SYSTEM -->
     <input id="q" placeholder="Message StudyGenius..."
     oninput="toggleButtons()" onkeydown="if(event.key==='Enter') handleAction()">
 
@@ -303,52 +296,8 @@ window.onload=()=>{
   },1200);
 };
 
-function toggleMenu(e){
-  e.stopPropagation();
-  menu.style.display = menu.style.display==="flex"?"none":"flex";
-}
-document.addEventListener("click",()=>menu.style.display="none");
-
-function toggleButtons(){
-  let val=q.value.trim();
-  let icon=document.getElementById("icon");
-  let btn=document.getElementById("actionBtn");
-
-  if(val){
-    btn.classList.add("sendActive");
-    icon.innerHTML=`<path d="M12 4l-7 7h4v6h6v-6h4z"/>`;
-  }else{
-    btn.classList.remove("sendActive");
-    icon.innerHTML=`<path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>`;
-  }
-}
-
-function handleAction(){
-  if(q.value.trim()){
-    let chat=document.getElementById("chat");
-
-    let user=document.createElement("div");
-    user.className="message user";
-    user.innerText=q.value;
-    chat.appendChild(user);
-
-    let bot=document.createElement("div");
-    bot.className="message bot";
-    bot.innerText="Thinking...";
-    chat.appendChild(bot);
-
-    q.value="";
-    toggleButtons();
-
-    setTimeout(()=>{
-      bot.innerText="Response generated.";
-    },800);
-  }
-}
-
-function toggleTheme(){
-  document.body.classList.toggle("dark");
-  document.body.classList.toggle("light");
+function toggleSidebar(){
+  document.querySelector(".sidebar").classList.toggle("collapsed");
 }
 </script>
 
