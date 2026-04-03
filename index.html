@@ -141,10 +141,18 @@ input{
   flex-direction:column;width:230px;
 }
 .menu button{
+  display:flex;
+  align-items:center;
+  gap:10px;
   background:none;border:none;color:white;
   padding:10px;text-align:left;border-radius:8px;
 }
 .menu button:hover{background:#3a3a3a;}
+
+.menu svg{
+  width:16px;
+  height:16px;
+}
 
 /* ACTION BUTTON */
 .actionBtn{
@@ -202,14 +210,47 @@ input{
       <span class="icon" onclick="toggleMenu(event)">➕</span>
 
       <div class="menu" id="menu">
-        <button>📷 Upload Photo</button>
-        <button>📄 Upload File</button>
-        <button>📘 Generate Notes</button>
-        <button>📝 Exam Mode</button>
-        <button>📊 Practice Paper</button>
-        <button>📅 Study Planner</button>
-        <button>🌍 Multi Language</button>
-        <button>⋯ More</button>
+
+        <button>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h16v14H4z"/></svg>
+          Upload Photo
+        </button>
+
+        <button>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h9l5 5v15H6z"/></svg>
+          Upload File
+        </button>
+
+        <button>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4z"/></svg>
+          Generate Notes
+        </button>
+
+        <button>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18v4H3z"/></svg>
+          Exam Mode
+        </button>
+
+        <button>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h18v8H3z"/></svg>
+          Practice Paper
+        </button>
+
+        <button>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6z"/></svg>
+          Study Planner
+        </button>
+
+        <button>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg>
+          Multi Language
+        </button>
+
+        <button>
+          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+          More
+        </button>
+
       </div>
     </div>
 
@@ -243,8 +284,6 @@ window.onload=()=>{
   setTimeout(()=>{
     splash.style.display="none";
     app.style.display="flex";
-
-    // 🔥 Welcome Message
     addBotMessage("Welcome to StudyGenius AI 🚀");
   },1200);
 };
@@ -254,7 +293,6 @@ function addBotMessage(text){
   msg.className="message bot";
   msg.innerText=text;
   chat.appendChild(msg);
-  chat.scrollTop=chat.scrollHeight;
 }
 
 function toggleMenu(e){
@@ -300,19 +338,9 @@ function send(){
   q.value="";
   toggleButtons();
 
-  // 🔥 Typing Effect
   setTimeout(()=>{
-    bot.innerText="";
-    let reply="This is a smart response to: "+text;
-    let i=0;
-    let interval=setInterval(()=>{
-      bot.innerText+=reply[i];
-      i++;
-      if(i>=reply.length) clearInterval(interval);
-    },20);
+    bot.innerText="This is a smart response to: "+text;
   },800);
-
-  chat.scrollTop=chat.scrollHeight;
 }
 
 function toggleTheme(){
