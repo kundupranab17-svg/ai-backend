@@ -85,15 +85,30 @@ body.light .btn:hover{background:#e5e5e5;}
 body.light .topbar{border-bottom:#ddd;}
 
 /* CHAT */
-.chat{flex:1;padding:20px;overflow-y:auto;}
+.chat{
+  flex:1;
+  padding:25px;
+  overflow-y:auto;
+  scroll-behavior:smooth;
+}
 body.dark .chat{background:#181818;}
 
 .message{
-  max-width:70%;padding:12px;margin:6px 0;
-  border-radius:12px;
+  max-width:70%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:14px;
+  line-height:1.5;
 }
-.user{margin-left:auto;background:linear-gradient(45deg,#3b82f6,#06b6d4);}
-body.dark .bot{background:#242424;}
+
+.user{
+  margin-left:auto;
+  background:linear-gradient(45deg,#3b82f6,#06b6d4);
+}
+
+.bot{
+  background:#242424;
+}
 
 /* INPUT */
 .inputBar{padding:14px;border-top:1px solid #333;}
@@ -131,18 +146,14 @@ input{
 }
 .menu button:hover{background:#3a3a3a;}
 
-/* ACTION BUTTON (DICTATE/SEND SAME PLACE) */
+/* ACTION BUTTON */
 .actionBtn{
   width:34px;height:34px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   cursor:pointer;
   background:#2f2f2f;
 }
-
-.sendActive{
-  background:#10a37f;
-}
-
+.sendActive{background:#10a37f;}
 </style>
 </head>
 
@@ -187,7 +198,6 @@ input{
 <div class="inputBar">
   <div class="inputBox">
 
-    <!-- + -->
     <div style="position:relative;">
       <span class="icon" onclick="toggleMenu(event)">➕</span>
 
@@ -204,9 +214,9 @@ input{
     </div>
 
     <input id="q" placeholder="Message StudyGenius..."
-    oninput="toggleButtons()" onkeydown="if(event.key==='Enter') send()">
+    oninput="toggleButtons()" onkeydown="if(event.key==='Enter') handleAction()">
 
-    <!-- 🎤 MIC (FIXED LEFT OF MAIN BUTTON) -->
+    <!-- MIC -->
     <span class="icon">
       <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
         <path d="M12 14a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3z"/>
@@ -214,9 +224,8 @@ input{
       </svg>
     </span>
 
-    <!-- 🔥 MAIN BUTTON (DICTATE ↔ SEND SAME PLACE) -->
+    <!-- MAIN BUTTON -->
     <div class="actionBtn" id="actionBtn" onclick="handleAction()">
-      <!-- default = dictate -->
       <svg id="icon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
         <path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>
       </svg>
@@ -234,8 +243,19 @@ window.onload=()=>{
   setTimeout(()=>{
     splash.style.display="none";
     app.style.display="flex";
+
+    // 🔥 Welcome Message
+    addBotMessage("Welcome to StudyGenius AI 🚀");
   },1200);
 };
+
+function addBotMessage(text){
+  let msg=document.createElement("div");
+  msg.className="message bot";
+  msg.innerText=text;
+  chat.appendChild(msg);
+  chat.scrollTop=chat.scrollHeight;
+}
 
 function toggleMenu(e){
   e.stopPropagation();
@@ -249,12 +269,10 @@ function toggleButtons(){
   let btn=document.getElementById("actionBtn");
 
   if(val){
-    // SEND
     btn.classList.add("sendActive");
     icon.innerHTML=`<path d="M12 4l-7 7h4v6h6v-6h4z"/>`;
     icon.setAttribute("fill","white");
   }else{
-    // DICTATE
     btn.classList.remove("sendActive");
     icon.innerHTML=`<path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>`;
     icon.setAttribute("fill","currentColor");
@@ -264,18 +282,37 @@ function toggleButtons(){
 function handleAction(){
   if(q.value.trim()){
     send();
-  }else{
-    alert("Voice input (future feature)");
   }
 }
 
 function send(){
-  let msg=document.createElement("div");
-  msg.className="message user";
-  msg.innerText=q.value;
-  chat.appendChild(msg);
+  let user=document.createElement("div");
+  user.className="message user";
+  user.innerText=q.value;
+  chat.appendChild(user);
+
+  let bot=document.createElement("div");
+  bot.className="message bot";
+  bot.innerText="Thinking...";
+  chat.appendChild(bot);
+
+  let text=q.value;
   q.value="";
   toggleButtons();
+
+  // 🔥 Typing Effect
+  setTimeout(()=>{
+    bot.innerText="";
+    let reply="This is a smart response to: "+text;
+    let i=0;
+    let interval=setInterval(()=>{
+      bot.innerText+=reply[i];
+      i++;
+      if(i>=reply.length) clearInterval(interval);
+    },20);
+  },800);
+
+  chat.scrollTop=chat.scrollHeight;
 }
 
 function toggleTheme(){
