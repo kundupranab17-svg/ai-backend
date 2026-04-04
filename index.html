@@ -24,7 +24,6 @@ body{margin:0;font-family:system-ui;display:flex;height:100vh;}
 .sidebar.collapsed .chatItem,
 .sidebar.collapsed .planBtn{display:none;}
 .sidebar.collapsed .btn{justify-content:center;}
-/* ✅ ONLY AVATAR SHOW */
 .sidebar.collapsed .accInfo{display:none;}
 .sidebar.collapsed .account{justify-content:center;}
 
@@ -40,9 +39,9 @@ body{margin:0;font-family:system-ui;display:flex;height:100vh;}
 .btn svg,.menu svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;}
 
 /* YOUR CHATS */
-.yourChats{font-size:13px;margin:10px 0 6px 6px;color:#9ca3af;font-weight:500;}
+.yourChats{font-size:14px;margin:10px 0 6px 6px;color:#9ca3af;font-weight:500;}
 
-.chatItem{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:6px;position:relative;font-size:14px;}
+.chatItem{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:6px;position:relative;font-size:13px;}
 .chatItem:hover{background:#2a2b32;}
 
 .left{display:flex;align-items:center;gap:6px;}
@@ -74,44 +73,17 @@ body{margin:0;font-family:system-ui;display:flex;height:100vh;}
 }
 .menu3 button:hover{background:#3a3a3a;}
 .menu3 hr{border:none;border-top:1px solid #444;margin:6px 0;}
-.menu3 svg{width:16px;height:16px;stroke:white;fill:none;stroke-width:2;}
-/* ✅ FULL RED DELETE */
+.menu3 svg{
+  width:16px;
+  height:16px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
+}
+
+/* DELETE FULL RED */
 .delete{color:#ff3b3b !important;}
 .delete svg{stroke:#ff3b3b !important;}
-
-/* ACCOUNT SECTION */
-.divider{height:1px;background:#2f2f2f;margin:10px 0;}
-
-.account{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:8px;
-  border-radius:8px;
-}
-.account:hover{background:#2a2b32;}
-
-.avatar{
-  width:32px;
-  height:32px;
-  border-radius:50%;
-  background:#444;
-}
-
-.accInfo{display:flex;flex-direction:column;}
-.accName{font-size:14px;}
-.plan{font-size:11px;color:#aaa;}
-
-.planBtn{
-  margin-top:8px;
-  padding:10px;
-  text-align:center;
-  border-radius:20px;
-  background:#2a2a2a;
-  font-size:13px;
-  cursor:pointer;
-}
-.planBtn:hover{background:#3a3a3a;}
 
 /* MAIN */
 .main{flex:1;display:flex;flex-direction:column;}
@@ -122,7 +94,7 @@ body{margin:0;font-family:system-ui;display:flex;height:100vh;}
 .user{margin-left:auto;background:linear-gradient(45deg,#3b82f6,#06b6d4);}
 .bot{background:#242424;}
 
-/* INPUT */
+/* INPUT (RESTORED ORIGINAL) */
 .inputBar{padding:14px;border-top:1px solid #333;}
 .inputBox{display:flex;align-items:center;gap:10px;max-width:800px;margin:auto;background:#2a2a2a;border-radius:18px;padding:12px 14px;}
 input{flex:1;background:none;border:none;color:inherit;outline:none;}
@@ -175,27 +147,14 @@ input{flex:1;background:none;border:none;color:inherit;outline:none;}
       <div class="toggleBtn" onclick="toggleSidebar()">☰</div>
     </div>
 
-    <!-- MAIN -->
-    <button class="btn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>New chat</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span>Search chats</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><circle cx="8" cy="8" r="2"/><path d="M21 15l-5-5L5 21"/></svg><span>Images</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Apps</span></button>
-
-    <!-- 🔬 MICROSCOPE -->
-    <button class="btn">
-      <svg viewBox="0 0 24 24">
-        <line x1="4" y1="20" x2="20" y2="20"/>
-        <path d="M8 20v-6a4 4 0 014-4h2"/>
-        <rect x="11" y="3" width="3" height="6" rx="1"/>
-        <line x1="12.5" y1="3" x2="15" y2="1"/>
-        <line x1="9" y1="12" x2="16" y2="12"/>
-        <path d="M9 15a4 4 0 004 4"/>
-      </svg>
-      <span>Deep search</span>
-    </button>
-
-    <button class="btn"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span>Codex</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><path d="M3 7h5l2 3h11v11H3z"/></svg><span>Projects</span></button>
+    <!-- MAIN SAME -->
+    <button class="btn"><span>New chat</span></button>
+    <button class="btn"><span>Search chats</span></button>
+    <button class="btn"><span>Images</span></button>
+    <button class="btn"><span>Apps</span></button>
+    <button class="btn"><span>Deep search</span></button>
+    <button class="btn"><span>Codex</span></button>
+    <button class="btn"><span>Projects</span></button>
 
     <div class="yourChats">Your Chats</div>
 
@@ -204,96 +163,35 @@ input{flex:1;background:none;border:none;color:inherit;outline:none;}
         <div class="dot"></div>
         <span>Example Chat</span>
       </div>
-      <!-- ✅ HORIZONTAL DOTS -->
       <div onclick="toggleMenu3(event)" style="font-size:18px;">⋯</div>
 
       <div class="menu3">
-        <button><svg viewBox="0 0 24 24"><path d="M4 12v-2a4 4 0 014-4h8"/><polyline points="16 6 20 6 20 10"/></svg>Share</button>
-        <button><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><circle cx="17" cy="17" r="3"/><path d="M13 10l2 2"/></svg>Start group chat</button>
-        <button><svg viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4z"/></svg>Rename</button>
+        <!-- ✅ FIXED SHARE ICON -->
+        <button>
+          <svg viewBox="0 0 24 24">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <line x1="8.5" y1="11" x2="15.5" y2="6.5"/>
+            <line x1="8.5" y1="13" x2="15.5" y2="17.5"/>
+          </svg>
+          Share
+        </button>
+
+        <button><span>Start group chat</span></button>
+        <button><span>Rename</span></button>
         <hr>
-        <button><svg viewBox="0 0 24 24"><path d="M12 17v-10"/><polyline points="8 11 12 7 16 11"/></svg>Pin</button>
-        <button><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4"/><path d="M6 8v12h12V8"/></svg>Archive</button>
-        <button class="delete"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>Delete</button>
+        <button><span>Pin chat</span></button>
+        <button><span>Archive</span></button>
+        <button class="delete"><span>Delete</span></button>
       </div>
     </div>
 
   </div>
-
-  <!-- ACCOUNT -->
-  <div>
-    <div class="divider"></div>
-
-    <div class="account">
-      <div class="avatar"></div>
-      <div class="accInfo">
-        <div class="accName">Pranab</div>
-        <div class="plan">Free</div>
-      </div>
-    </div>
-
-    <div class="planBtn">Upgrade Plan</div>
-  </div>
-</div>
-
-<div class="main">
-
-<div class="topbar">
-  <div>StudyGenius AI ▼</div>
-  <div class="icon" onclick="toggleTheme()">🌗</div>
-</div>
-
-<div class="chat" id="chat"></div>
-
-<div class="inputBar">
-  <div class="inputBox">
-
-    <div style="position:relative;">
-      <span class="icon" onclick="toggleMenu(event)">➕</span>
-
-      <div class="menu" id="menu">
-        <button><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14"/><circle cx="9" cy="10" r="2"/><path d="M21 15l-5-5-4 4-2-2-7 7"/></svg>Upload Photo</button>
-        <button><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Upload File</button>
-        <button><svg viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M6 17V5a2 2 0 012-2h8a2 2 0 012 2v12"/><path d="M9 9h6M9 13h4"/></svg>Generate Notes</button>
-        <button><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>Exam Mode</button>
-        <button><svg viewBox="0 0 24 24"><path d="M6 20V10"/><path d="M12 20V6"/><path d="M18 20v-4"/></svg>Practice Paper</button>
-        <button><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16"/><path d="M3 9h18"/></svg>Study Planner</button>
-        <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 010 20"/></svg>Multi Language</button>
-        <button><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button>
-      </div>
-
-    </div>
-
-    <input id="q" placeholder="Message StudyGenius..."
-    oninput="toggleButtons()" onkeydown="if(event.key==='Enter') handleAction()">
-
-    <span class="icon">
-      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 14a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3z"/>
-        <path d="M19 11a7 7 0 01-14 0H3a9 9 0 0018 0h-2z"/>
-      </svg>
-    </span>
-
-    <div class="actionBtn" id="actionBtn" onclick="handleAction()">
-      <svg id="icon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>
-      </svg>
-    </div>
-
-  </div>
-</div>
-
-</div>
 </div>
 
 <script>
-window.onload=()=>{setTimeout(()=>{splash.style.display="none";app.style.display="flex";},1200);};
-
 function toggleSidebar(){document.querySelector(".sidebar").classList.toggle("collapsed");}
-
-function toggleMenu(e){e.stopPropagation();menu.style.display=menu.style.display==="flex"?"none":"flex";}
-document.addEventListener("click",()=>menu.style.display="none");
-
 function toggleMenu3(e){
   e.stopPropagation();
   document.querySelectorAll(".menu3").forEach(m=>m.style.display="none");
@@ -301,44 +199,6 @@ function toggleMenu3(e){
   menu.style.display="flex";
 }
 document.addEventListener("click",()=>document.querySelectorAll(".menu3").forEach(m=>m.style.display="none"));
-
-function toggleButtons(){
-  let val=q.value.trim();
-  let icon=document.getElementById("icon");
-  let btn=document.getElementById("actionBtn");
-  if(val){
-    btn.classList.add("sendActive");
-    icon.innerHTML=`<path d="M12 4l-7 7h4v6h6v-6h4z"/>`;
-  }else{
-    btn.classList.remove("sendActive");
-    icon.innerHTML=`<path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>`;
-  }
-}
-
-function handleAction(){
-  if(q.value.trim()){
-    let chat=document.getElementById("chat");
-    let user=document.createElement("div");
-    user.className="message user";
-    user.innerText=q.value;
-    chat.appendChild(user);
-
-    let bot=document.createElement("div");
-    bot.className="message bot";
-    bot.innerText="Thinking...";
-    chat.appendChild(bot);
-
-    q.value="";
-    toggleButtons();
-
-    setTimeout(()=>{bot.innerText="Response generated.";},800);
-  }
-}
-
-function toggleTheme(){
-  document.body.classList.toggle("dark");
-  document.body.classList.toggle("light");
-}
 </script>
 
 </body>
