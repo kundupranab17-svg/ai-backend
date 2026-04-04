@@ -198,13 +198,35 @@ input{flex:1;background:none;border:none;color:inherit;outline:none;}
       <div class="toggleBtn" onclick="toggleSidebar()">☰</div>
     </div>
 
-    <button class="btn active"><span>New chat</span></button>
-    <button class="btn"><span>Search chats</span></button>
-    <button class="btn"><span>Images</span></button>
-    <button class="btn"><span>Apps</span></button>
-    <button class="btn"><span>Deep search</span></button>
-    <button class="btn"><span>Codex</span></button>
-    <button class="btn"><span>Projects</span></button>
+    <!-- ✅ FINAL SIDEBAR BUTTONS & ICONS -->
+    <button class="btn active">
+      <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/></svg>
+      <span>New chat</span>
+    </button>
+    <button class="btn">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
+      <span>Search chats</span>
+    </button>
+    <button class="btn">
+      <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg>
+      <span>Images</span>
+    </button>
+    <button class="btn">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg>
+      <span>Apps</span>
+    </button>
+    <button class="btn">
+      <svg viewBox="0 0 24 24"><polygon points="12,2 22,22 2,22"/></svg>
+      <span>Deep search</span>
+    </button>
+    <button class="btn">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v4H4z"/></svg>
+      <span>Codex</span>
+    </button>
+    <button class="btn">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg>
+      <span>Projects</span>
+    </button>
   </div>
 
   <div>Pranab<br>Free Plan</div>
@@ -225,7 +247,7 @@ input{flex:1;background:none;border:none;color:inherit;outline:none;}
     <div style="position:relative;">
       <span class="icon" onclick="toggleMenu(event)">➕</span>
 
-      <!-- ✅ ICONS RESTORED -->
+      <!-- ✅ FINAL MENU ICONS RESTORED -->
       <div class="menu" id="menu">
         <button><svg viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4z"/><circle cx="12" cy="13" r="4"/></svg>Upload Photo</button>
         <button><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><polyline points="14 2 14 8 20 8"/></svg>Upload File</button>
