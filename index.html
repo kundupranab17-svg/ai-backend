@@ -8,129 +8,42 @@
 <style>
 body.dark{background:#181818;color:white;}
 body.light{background:#fff;color:#111;}
-
-body{
-  margin:0;
-  font-family:system-ui;
-  display:flex;
-  height:100vh;
-}
+body{margin:0;font-family:system-ui;display:flex;height:100vh;}
 
 /* SPLASH */
-#splash{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:#0f172a;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-
-#logoAnim{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  overflow:hidden;
-  animation:zoomFade 1.5s ease forwards;
-}
-
-#logoAnim img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transform:scale(1.3);
-}
-
-@keyframes zoomFade{
-  0%{transform:scale(0.6);opacity:0;}
-  100%{transform:scale(1);}
-}
+#splash{position:fixed;width:100%;height:100%;background:#0f172a;display:flex;justify-content:center;align-items:center;z-index:9999;}
+#logoAnim{width:80px;height:80px;border-radius:50%;overflow:hidden;animation:zoomFade 1.5s ease forwards;}
+#logoAnim img{width:100%;height:100%;object-fit:cover;transform:scale(1.3);}
+@keyframes zoomFade{0%{transform:scale(0.6);opacity:0;}100%{transform:scale(1);}}
 
 /* SIDEBAR */
-.sidebar{
-  width:220px;
-  background:#202123;
-  padding:12px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  transition:0.3s;
-}
-body.light .sidebar{background:#f7f7f8;}
-
+.sidebar{width:220px;background:#202123;padding:12px;display:flex;flex-direction:column;justify-content:space-between;transition:0.3s;}
 .sidebar.collapsed{width:70px;}
 .sidebar.collapsed .btn span,
 .sidebar.collapsed .yourChats,
 .sidebar.collapsed .chatItem{display:none;}
 .sidebar.collapsed .btn{justify-content:center;}
 
-.logoRow{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:10px;
-}
-
-.logoWrap{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  overflow:hidden;
-}
+.logoRow{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.logoWrap{width:28px;height:28px;border-radius:50%;overflow:hidden;}
 .logoWrap img{width:100%;height:100%;object-fit:cover;}
-
 .toggleBtn{cursor:pointer;padding:6px;border-radius:6px;}
 .toggleBtn:hover{background:#2a2b32;}
 
-.btn{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px;border:none;border-radius:8px;
-  margin:4px 0;background:transparent;
-  color:inherit;text-align:left;cursor:pointer;
-}
+.btn{display:flex;align-items:center;gap:10px;padding:10px;border:none;border-radius:8px;margin:4px 0;background:transparent;color:inherit;cursor:pointer;}
 .btn:hover{background:#2a2b32;}
 
-.btn svg, .menu svg{
-  width:18px;
-  height:18px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2;
-}
+.btn svg,.menu svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;}
 
 /* YOUR CHATS */
-.yourChats{
-  font-size:12px;
-  margin:10px 0 5px 5px;
-  color:#aaa;
-}
+.yourChats{font-size:11px;margin:8px 0 4px 5px;color:#aaa;}
 
-.chatItem{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:8px;
-  border-radius:6px;
-  position:relative;
-}
+.chatItem{display:flex;justify-content:space-between;align-items:center;padding:6px 8px;border-radius:6px;position:relative;font-size:13px;}
 .chatItem:hover{background:#2a2b32;}
 
-.left{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
+.left{display:flex;align-items:center;gap:6px;}
 
-.dot{
-  width:8px;
-  height:8px;
-  background:white;
-  border-radius:50%;
-}
+.dot{width:6px;height:6px;background:white;border-radius:50%;}
 
 /* 3 DOT MENU */
 .menu3{
@@ -177,53 +90,18 @@ body.light .sidebar{background:#f7f7f8;}
 
 /* MAIN */
 .main{flex:1;display:flex;flex-direction:column;}
+.topbar{height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;border-bottom:1px solid #444;}
 
-.topbar{
-  height:50px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 15px;
-  border-bottom:1px solid #444;
-}
+.chat{flex:1;padding:25px;overflow-y:auto;}
 
-.chat{
-  flex:1;
-  padding:25px;
-  overflow-y:auto;
-}
-
-.message{
-  max-width:70%;
-  padding:14px;
-  margin:10px 0;
-  border-radius:14px;
-}
-
+.message{max-width:70%;padding:14px;margin:10px 0;border-radius:14px;}
 .user{margin-left:auto;background:linear-gradient(45deg,#3b82f6,#06b6d4);}
 .bot{background:#242424;}
 
 /* INPUT */
 .inputBar{padding:14px;border-top:1px solid #333;}
-
-.inputBox{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  max-width:800px;
-  margin:auto;
-  background:#2a2a2a;
-  border-radius:18px;
-  padding:12px 14px;
-}
-
-input{
-  flex:1;
-  background:none;
-  border:none;
-  color:inherit;
-  outline:none;
-}
+.inputBox{display:flex;align-items:center;gap:10px;max-width:800px;margin:auto;background:#2a2a2a;border-radius:18px;padding:12px 14px;}
+input{flex:1;background:none;border:none;color:inherit;outline:none;}
 
 .icon{cursor:pointer;padding:6px;border-radius:6px;}
 .icon:hover{background:#333;}
@@ -253,16 +131,7 @@ input{
 .menu button:hover{background:#3a3a3a;}
 
 /* BUTTON */
-.actionBtn{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  background:#2f2f2f;
-}
+.actionBtn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#2f2f2f;}
 .sendActive{background:#10a37f;}
 </style>
 </head>
@@ -333,16 +202,18 @@ input{
     <div style="position:relative;">
       <span class="icon" onclick="toggleMenu(event)">➕</span>
 
+      <!-- 🔥 RESTORED ICONS -->
       <div class="menu" id="menu">
-        <button>Upload Photo</button>
-        <button>Upload File</button>
-        <button>Generate Notes</button>
-        <button>Exam Mode</button>
-        <button>Practice Paper</button>
-        <button>Study Planner</button>
-        <button>Multi Language</button>
-        <button>More</button>
+        <button><svg viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4z"/><circle cx="12" cy="13" r="4"/></svg>Upload Photo</button>
+        <button><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><polyline points="14 2 14 8 20 8"/></svg>Upload File</button>
+        <button><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 00-4 13v3h8v-3a7 7 0 00-4-13z"/></svg>Generate Notes</button>
+        <button><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18"/><line x1="8" y1="7" x2="16" y2="7"/></svg>Exam Mode</button>
+        <button><svg viewBox="0 0 24 24"><line x1="6" y1="20" x2="6" y2="10"/><line x1="12" y1="20" x2="12" y2="6"/></svg>Practice Paper</button>
+        <button><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Study Planner</button>
+        <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>Multi Language</button>
+        <button><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button>
       </div>
+
     </div>
 
     <input id="q" placeholder="Message StudyGenius..."
@@ -368,21 +239,11 @@ input{
 </div>
 
 <script>
-window.onload=()=>{
-  setTimeout(()=>{
-    splash.style.display="none";
-    app.style.display="flex";
-  },1200);
-};
+window.onload=()=>{setTimeout(()=>{splash.style.display="none";app.style.display="flex";},1200);};
 
-function toggleSidebar(){
-  document.querySelector(".sidebar").classList.toggle("collapsed");
-}
+function toggleSidebar(){document.querySelector(".sidebar").classList.toggle("collapsed");}
 
-function toggleMenu(e){
-  e.stopPropagation();
-  menu.style.display = menu.style.display==="flex"?"none":"flex";
-}
+function toggleMenu(e){e.stopPropagation();menu.style.display=menu.style.display==="flex"?"none":"flex";}
 document.addEventListener("click",()=>menu.style.display="none");
 
 function toggleMenu3(e){
@@ -391,16 +252,12 @@ function toggleMenu3(e){
   let menu = e.target.parentElement.querySelector(".menu3");
   menu.style.display="flex";
 }
-
-document.addEventListener("click",()=>{
-  document.querySelectorAll(".menu3").forEach(m=>m.style.display="none");
-});
+document.addEventListener("click",()=>document.querySelectorAll(".menu3").forEach(m=>m.style.display="none"));
 
 function toggleButtons(){
   let val=q.value.trim();
   let icon=document.getElementById("icon");
   let btn=document.getElementById("actionBtn");
-
   if(val){
     btn.classList.add("sendActive");
     icon.innerHTML=`<path d="M12 4l-7 7h4v6h6v-6h4z"/>`;
@@ -413,7 +270,6 @@ function toggleButtons(){
 function handleAction(){
   if(q.value.trim()){
     let chat=document.getElementById("chat");
-
     let user=document.createElement("div");
     user.className="message user";
     user.innerText=q.value;
@@ -427,9 +283,7 @@ function handleAction(){
     q.value="";
     toggleButtons();
 
-    setTimeout(()=>{
-      bot.innerText="Response generated.";
-    },800);
+    setTimeout(()=>{bot.innerText="Response generated.";},800);
   }
 }
 
