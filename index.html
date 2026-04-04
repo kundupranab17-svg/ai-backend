@@ -8,67 +8,239 @@
 <style>
 body.dark{background:#181818;color:white;}
 body.light{background:#fff;color:#111;}
-body{margin:0;font-family:system-ui;display:flex;height:100vh;}
+
+body{
+  margin:0;
+  font-family:system-ui;
+  display:flex;
+  height:100vh;
+}
 
 /* SPLASH */
-#splash{position:fixed;width:100%;height:100%;background:#0f172a;display:flex;justify-content:center;align-items:center;z-index:9999;}
-#logoAnim{width:80px;height:80px;border-radius:50%;overflow:hidden;animation:zoomFade 1.5s ease forwards;}
-#logoAnim img{width:100%;height:100%;object-fit:cover;transform:scale(1.3);}
-@keyframes zoomFade{0%{transform:scale(0.6);opacity:0;}100%{transform:scale(1);}}
+#splash{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:#0f172a;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+#logoAnim{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  overflow:hidden;
+  animation:zoomFade 1.5s ease forwards;
+}
+
+#logoAnim img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.3);
+}
+
+@keyframes zoomFade{
+  0%{transform:scale(0.6);opacity:0;}
+  100%{transform:scale(1);}
+}
 
 /* SIDEBAR */
-.sidebar{width:220px;background:#202123;padding:12px;display:flex;flex-direction:column;justify-content:space-between;}
+.sidebar{
+  width:220px;
+  background:#202123;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition: width 0.3s;
+}
 body.light .sidebar{background:#f7f7f8;}
+
 .sidebar.collapsed{width:70px;}
 .sidebar.collapsed .btn span{display:none;}
 .sidebar.collapsed .btn{justify-content:center;}
-.logoRow{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.logoWrap{width:28px;height:28px;border-radius:50%;overflow:hidden;}
+.sidebar.collapsed .chatItem span{display:none;}
+.sidebar.collapsed .chatItem{justify-content:center;}
+
+.logoRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+.logoWrap{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  overflow:hidden;
+}
 .logoWrap img{width:100%;height:100%;object-fit:cover;}
+
 .toggleBtn{cursor:pointer;padding:6px;border-radius:6px;}
 .toggleBtn:hover{background:#2a2b32;}
-.btn{display:flex;align-items:center;gap:10px;padding:10px;border:none;border-radius:8px;margin:4px 0;background:transparent;color:inherit;text-align:left;cursor:pointer;}
-.btn:hover{background:#2a2b32;}
-.btn svg,.menu svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;}
-.chatItem{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:8px;cursor:pointer;}
-.chatItem:hover{background:#2a2b32;}
-.chatItem span{flex:1;margin-left:8px;}
-.chatOptions{display:none;position:absolute;background:#2a2a2a;border-radius:8px;padding:5px;flex-direction:column;width:180px;z-index:100;}
-.chatOptions button{display:flex;align-items:center;gap:6px;background:none;border:none;color:white;padding:6px;border-radius:6px;}
-.chatOptions button:hover{background:#3a3a3a;}
-.chatOptions .delete{color:red;}
+
+.btn, .chatItem{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  margin:4px 0;
+  background:transparent;
+  color:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+.btn:hover, .chatItem:hover{background:#2a2b32;}
+
+.btn svg, .menu svg, .chatItem svg{
+  width:18px;
+  height:18px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
+}
+
+/* 3-DOT MENU */
+.chatMenu{
+  display:none;
+  position:absolute;
+  left:100%;
+  top:0;
+  background:#2a2a2a;
+  border-radius:8px;
+  padding:6px;
+  flex-direction:column;
+  min-width:150px;
+  z-index:10;
+}
+.chatMenu button{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:none;
+  border:none;
+  color:white;
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:13px;
+}
+.chatMenu button:hover{background:#3a3a3a;}
+.chatMenu .delete{color:#f87171;}
 
 /* MAIN */
 .main{flex:1;display:flex;flex-direction:column;}
-.topbar{height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;border-bottom:1px solid #444;}
-.chat{flex:1;padding:25px;overflow-y:auto;}
-.message{max-width:70%;padding:14px;margin:10px 0;border-radius:14px;}
+
+.topbar{
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  border-bottom:1px solid #444;
+}
+
+.chat{
+  flex:1;
+  padding:25px;
+  overflow-y:auto;
+}
+
+.message{
+  max-width:70%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:14px;
+}
+
 .user{margin-left:auto;background:linear-gradient(45deg,#3b82f6,#06b6d4);}
 .bot{background:#242424;}
+
+/* INPUT */
 .inputBar{padding:14px;border-top:1px solid #333;}
-.inputBox{display:flex;align-items:center;gap:10px;max-width:800px;margin:auto;background:#2a2a2a;border-radius:18px;padding:12px 14px;}
-input{flex:1;background:none;border:none;color:inherit;outline:none;}
+
+.inputBox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  max-width:800px;
+  margin:auto;
+  background:#2a2a2a;
+  border-radius:18px;
+  padding:12px 14px;
+}
+
+input{
+  flex:1;
+  background:none;
+  border:none;
+  color:inherit;
+  outline:none;
+}
+
 .icon{cursor:pointer;padding:6px;border-radius:6px;}
 .icon:hover{background:#333;}
-.menu{position:absolute;bottom:55px;left:0;background:#2a2a2a;border-radius:12px;padding:10px;display:none;flex-direction:column;width:230px;}
-.menu button{display:flex;align-items:center;gap:10px;background:none;border:none;color:white;padding:10px;border-radius:8px;}
+
+/* MENU */
+.menu{
+  position:absolute;
+  bottom:55px;
+  left:0;
+  background:#2a2a2a;
+  border-radius:12px;
+  padding:10px;
+  display:none;
+  flex-direction:column;
+  width:230px;
+}
+.menu button{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:none;
+  border:none;
+  color:white;
+  padding:10px;
+  border-radius:8px;
+}
 .menu button:hover{background:#3a3a3a;}
-.actionBtn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#2f2f2f;}
+
+/* BUTTON */
+.actionBtn{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  background:#2f2f2f;
+}
 .sendActive{background:#10a37f;}
 </style>
 </head>
 
 <body class="dark">
 
-<div id="splash"><div id="logoAnim"><img src="logo.png"></div></div>
+<div id="splash">
+  <div id="logoAnim"><img src="logo.png"></div>
+</div>
 
-<div id="app" style="display:none;width:100%;display:flex;">
+<div id="app" style="display:none; width:100%; display:flex;">
+
 <div class="sidebar">
   <div>
     <div class="logoRow">
       <div class="logoWrap"><img src="logo.png"></div>
       <div class="toggleBtn" onclick="toggleSidebar()">☰</div>
     </div>
+
     <!-- SIDEBAR BUTTONS -->
     <button class="btn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>New chat</span></button>
     <button class="btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span>Search chats</span></button>
@@ -79,25 +251,54 @@ input{flex:1;background:none;border:none;color:inherit;outline:none;}
     <button class="btn"><svg viewBox="0 0 24 24"><path d="M3 7h5l2 3h11v11H3z"/></svg><span>Projects</span></button>
 
     <!-- YOUR CHATS -->
-    <div style="margin-top:15px;font-weight:bold;color:#999;">Your Chats</div>
-    <div id="yourChats">
-      <div class="chatItem" onclick="selectChat(this)"><span>Example Chat 1</span><span class="chatDot">⋯</span></div>
-      <div class="chatItem" onclick="selectChat(this)"><span>Example Chat 2</span><span class="chatDot">⋯</span></div>
-      <div class="chatItem" onclick="selectChat(this)"><span>Example Chat 3</span><span class="chatDot">⋯</span></div>
+    <hr style="border-color:#333;margin:10px 0;">
+    <div class="chatItem" style="position:relative;">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>
+      <span>Example Chat 1</span>
+      <div class="chatMenu">
+        <button><svg viewBox="0 0 24 24"><path d="M4 12h16"/></svg>Share</button>
+        <button><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/></svg>Start Group Chat</button>
+        <button><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg>Rename</button>
+        <hr style="border-color:#444;margin:4px 0;">
+        <button><svg viewBox="0 0 24 24"><path d="M12 2v20"/></svg>Pin Chat</button>
+        <button><svg viewBox="0 0 24 24"><path d="M2 12h20"/></svg>Archive</button>
+        <button class="delete"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/></svg>Delete</button>
+      </div>
     </div>
+    <div class="chatItem" style="position:relative;">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>
+      <span>Example Chat 2</span>
+      <div class="chatMenu">
+        <button><svg viewBox="0 0 24 24"><path d="M4 12h16"/></svg>Share</button>
+        <button><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/></svg>Start Group Chat</button>
+        <button><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg>Rename</button>
+        <hr style="border-color:#444;margin:4px 0;">
+        <button><svg viewBox="0 0 24 24"><path d="M12 2v20"/></svg>Pin Chat</button>
+        <button><svg viewBox="0 0 24 24"><path d="M2 12h20"/></svg>Archive</button>
+        <button class="delete"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3z"/></svg>Delete</button>
+      </div>
+    </div>
+
   </div>
+
   <div>Pranab<br>Free Plan</div>
 </div>
 
 <div class="main">
+
 <div class="topbar">
   <div>StudyGenius AI ▼</div>
   <div class="icon" onclick="toggleTheme()">🌗</div>
 </div>
+
 <div class="chat" id="chat"></div>
+
 <div class="inputBar">
   <div class="inputBox">
-    <div style="position:relative;"><span class="icon" onclick="toggleMenu(event)">➕</span>
+
+    <div style="position:relative;">
+      <span class="icon" onclick="toggleMenu(event)">➕</span>
+
       <div class="menu" id="menu">
         <button><svg viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4z"/><circle cx="12" cy="13" r="4"/></svg>Upload Photo</button>
         <button><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><polyline points="14 2 14 8 20 8"/></svg>Upload File</button>
@@ -108,49 +309,100 @@ input{flex:1;background:none;border:none;color:inherit;outline:none;}
         <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>Multi Language</button>
         <button><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button>
       </div>
+
     </div>
-    <input id="q" placeholder="Message StudyGenius..." oninput="toggleButtons()" onkeydown="if(event.key==='Enter') handleAction()">
-    <span class="icon"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3z"/><path d="M19 11a7 7 0 01-14 0H3a9 9 0 0018 0h-2z"/></svg></span>
-    <div class="actionBtn" id="actionBtn" onclick="handleAction()"><svg id="icon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/></svg></div>
+
+    <input id="q" placeholder="Message StudyGenius..."
+    oninput="toggleButtons()" onkeydown="if(event.key==='Enter') handleAction()">
+
+    <span class="icon">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 14a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3z"/>
+        <path d="M19 11a7 7 0 01-14 0H3a9 9 0 0018 0h-2z"/>
+      </svg>
+    </span>
+
+    <div class="actionBtn" id="actionBtn" onclick="handleAction()">
+      <svg id="icon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>
+      </svg>
+    </div>
+
   </div>
 </div>
+
 </div>
 </div>
 
 <script>
-window.onload=()=>{setTimeout(()=>{splash.style.display="none";app.style.display="flex";},1200);};
-function toggleSidebar(){document.querySelector(".sidebar").classList.toggle("collapsed");}
-function toggleMenu(e){e.stopPropagation();menu.style.display=menu.style.display==="flex"?"none":"flex";}
-document.addEventListener("click",()=>menu.style.display="none");
-function toggleButtons(){let val=q.value.trim();let icon=document.getElementById("icon");let btn=document.getElementById("actionBtn");if(val){btn.classList.add("sendActive");icon.innerHTML=`<path d="M12 4l-7 7h4v6h6v-6h4z"/>`;}else{btn.classList.remove("sendActive");icon.innerHTML=`<path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>`;}}
-function handleAction(){if(q.value.trim()){let chat=document.getElementById("chat");let user=document.createElement("div");user.className="message user";user.innerText=q.value;chat.appendChild(user);let bot=document.createElement("div");bot.className="message bot";bot.innerText="Thinking...";chat.appendChild(bot);q.value="";toggleButtons();setTimeout(()=>{bot.innerText="Response generated.";},800);}}
-function toggleTheme(){document.body.classList.toggle("dark");document.body.classList.toggle("light");}
-function selectChat(el){
-  // Remove any previous option menus
-  let existingMenus=document.querySelectorAll('.chatOptions');
-  existingMenus.forEach(m=>m.remove());
-  // Create options menu
-  let menu=document.createElement('div');
-  menu.className='chatOptions';
-  let options=[
-    {name:'Share',icon:'M4 12h16M12 4v16'},
-    {name:'Start Group Chat',icon:'M12 5v14M5 12h14'},
-    {name:'Rename',icon:'M4 4h16v16H4z'},
-    {name:'divider'},
-    {name:'Pin',icon:'M12 2v20'},
-    {name:'Archive',icon:'M3 3h18v18H3z'},
-    {name:'Delete',icon:'M3 6h18v12H3z',red:true}
-  ];
-  options.forEach(o=>{
-    if(o.name==='divider'){
-      let hr=document.createElement('hr');hr.style.margin='4px 0';menu.appendChild(hr);
-    }else{
-      let b=document.createElement('button');if(o.red)b.className='delete';b.innerHTML=`<svg viewBox='0 0 24 24'><path d='${o.icon}'/></svg>${o.name}`;menu.appendChild(b);
-    }
-  });
-  el.appendChild(menu);
-  menu.style.display='flex';
+window.onload=()=>{
+  setTimeout(()=>{
+    splash.style.display="none";
+    app.style.display="flex";
+  },1200);
+};
+
+function toggleSidebar(){
+  document.querySelector(".sidebar").classList.toggle("collapsed");
 }
+
+function toggleMenu(e){
+  e.stopPropagation();
+  menu.style.display = menu.style.display==="flex"?"none":"flex";
+}
+document.addEventListener("click",()=>menu.style.display="none");
+
+function toggleButtons(){
+  let val=q.value.trim();
+  let icon=document.getElementById("icon");
+  let btn=document.getElementById("actionBtn");
+
+  if(val){
+    btn.classList.add("sendActive");
+    icon.innerHTML=`<path d="M12 4l-7 7h4v6h6v-6h4z"/>`;
+  }else{
+    btn.classList.remove("sendActive");
+    icon.innerHTML=`<path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>`;
+  }
+}
+
+function handleAction(){
+  if(q.value.trim()){
+    let chat=document.getElementById("chat");
+
+    let user=document.createElement("div");
+    user.className="message user";
+    user.innerText=q.value;
+    chat.appendChild(user);
+
+    let bot=document.createElement("div");
+    bot.className="message bot";
+    bot.innerText="Thinking...";
+    chat.appendChild(bot);
+
+    q.value="";
+    toggleButtons();
+
+    setTimeout(()=>{
+      bot.innerText="Response generated.";
+    },800);
+  }
+}
+
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  document.body.classList.toggle("light");
+}
+
+// Chat 3-dot menu toggle
+document.querySelectorAll('.chatItem').forEach(item=>{
+  item.addEventListener('mouseenter',()=>{
+    item.querySelector('.chatMenu').style.display='flex';
+  });
+  item.addEventListener('mouseleave',()=>{
+    item.querySelector('.chatMenu').style.display='none';
+  });
+});
 </script>
 
 </body>
