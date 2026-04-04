@@ -81,6 +81,7 @@ body.light .sidebar{background:#f7f7f8;}
 .toggleBtn{cursor:pointer;padding:6px;border-radius:6px;}
 .toggleBtn:hover{background:#2a2b32;}
 
+/* Buttons */
 .btn{
   display:flex;
   align-items:center;
@@ -88,15 +89,19 @@ body.light .sidebar{background:#f7f7f8;}
   padding:10px;border:none;border-radius:8px;
   margin:4px 0;background:transparent;
   color:inherit;text-align:left;cursor:pointer;
+  transition:background 0.2s, transform 0.1s;
 }
 .btn:hover{background:#2a2b32;}
+.btn.active{background:#3b82f6;color:white;}
 
+/* SVG icons in buttons */
 .btn svg, .menu svg{
   width:18px;
   height:18px;
   stroke:currentColor;
   fill:none;
   stroke-width:2;
+  transition:stroke 0.2s, transform 0.1s;
 }
 
 /* MAIN */
@@ -149,7 +154,7 @@ input{
   outline:none;
 }
 
-.icon{cursor:pointer;padding:6px;border-radius:6px;}
+.icon{cursor:pointer;padding:6px;border-radius:6px;transition:background 0.2s;}
 .icon:hover{background:#333;}
 
 /* MENU */
@@ -173,8 +178,10 @@ input{
   color:white;
   padding:10px;
   border-radius:8px;
+  transition:background 0.2s, transform 0.1s;
 }
 .menu button:hover{background:#3a3a3a;}
+.menu button:active{transform:scale(0.97);}
 
 /* BUTTON */
 .actionBtn{
@@ -186,7 +193,10 @@ input{
   justify-content:center;
   cursor:pointer;
   background:#2f2f2f;
+  transition:background 0.2s, transform 0.1s;
 }
+.actionBtn:hover{background:#3a3a3a;}
+.actionBtn:active{transform:scale(0.95);}
 .sendActive{background:#10a37f;}
 </style>
 </head>
@@ -207,7 +217,7 @@ input{
     </div>
 
     <!-- SIDEBAR SAME -->
-    <button class="btn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>New chat</span></button>
+    <button class="btn active"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>New chat</span></button>
     <button class="btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span>Search chats</span></button>
     <button class="btn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><circle cx="8" cy="8" r="2"/><path d="M21 15l-5-5L5 21"/></svg><span>Images</span></button>
     <button class="btn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Apps</span></button>
@@ -234,7 +244,7 @@ input{
     <div style="position:relative;">
       <span class="icon" onclick="toggleMenu(event)">➕</span>
 
-      <!-- 🔥 ONLY CHANGE HERE -->
+      <!-- MENU -->
       <div class="menu" id="menu">
         <button><svg viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4z"/><circle cx="12" cy="13" r="4"/></svg>Upload Photo</button>
         <button><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><polyline points="14 2 14 8 20 8"/></svg>Upload File</button>
@@ -243,16 +253,7 @@ input{
         <button><svg viewBox="0 0 24 24"><line x1="6" y1="20" x2="6" y2="10"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="18" y1="20" x2="18" y2="14"/></svg>Practice Paper</button>
         <button><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Study Planner</button>
         <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>Multi Language</button>
-
-        <!-- ✅ FIXED 3 DOTS -->
-        <button>
-          <svg viewBox="0 0 24 24">
-            <circle cx="5" cy="12" r="1.5"/>
-            <circle cx="12" cy="12" r="1.5"/>
-            <circle cx="19" cy="12" r="1.5"/>
-          </svg>
-          More
-        </button>
+        <button><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button>
       </div>
 
     </div>
