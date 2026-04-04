@@ -63,6 +63,7 @@ body.light .sidebar{background:#f7f7f8;}
   width:70px;
 }
 
+/* 🔥 FIX */
 .sidebar.collapsed .btn span{
   display:none;
 }
@@ -107,11 +108,8 @@ body.light .sidebar{background:#f7f7f8;}
 .btn:hover{background:#2a2b32;}
 
 .btn svg{
-  width:18px;
-  height:18px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:2;
+  width:16px;
+  height:16px;
 }
 
 /* MAIN */
@@ -244,49 +242,22 @@ input{
       <div class="toggleBtn" onclick="toggleSidebar()">☰</div>
     </div>
 
-    <!-- 🔥 CLEAN ICONS -->
-    <button class="btn">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-      <span>New chat</span>
-    </button>
-
-    <button class="btn">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-      <span>Search chats</span>
-    </button>
-
-    <button class="btn">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/></svg>
-      <span>Images</span>
-    </button>
-
-    <button class="btn">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg>
-      <span>Apps</span>
-    </button>
-
-    <button class="btn">
-      <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 10h16"/></svg>
-      <span>Deep search</span>
-    </button>
-
-    <button class="btn">
-      <svg viewBox="0 0 24 24"><path d="M8 3h8v18H8z"/></svg>
-      <span>Codex</span>
-    </button>
-
-    <button class="btn">
-      <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12"/></svg>
-      <span>Projects</span>
-    </button>
+    <!-- ✅ TEXT WRAPPED -->
+    <button class="btn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>New chat</span></button>
+    <button class="btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/></svg><span>Search chats</span></button>
+    <button class="btn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/></svg><span>Images</span></button>
+    <button class="btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><span>Apps</span></button>
+    <button class="btn"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg><span>Deep search</span></button>
+    <button class="btn"><svg viewBox="0 0 24 24"><path d="M8 3h8v18H8z"/></svg><span>Codex</span></button>
+    <button class="btn"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12"/></svg><span>Projects</span></button>
 
   </div>
 
   <div>Pranab<br>Free Plan</div>
 </div>
 
-<!-- REST SAME -->
 <div class="main">
+
 <div class="topbar">
   <div>StudyGenius AI ▼</div>
   <div class="icon" onclick="toggleTheme()">🌗</div>
@@ -296,7 +267,39 @@ input{
 
 <div class="inputBar">
   <div class="inputBox">
-    <input id="q" placeholder="Message StudyGenius...">
+
+    <div style="position:relative;">
+      <span class="icon" onclick="toggleMenu(event)">➕</span>
+
+      <div class="menu" id="menu">
+        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="14"/></svg>Upload Photo</button>
+        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2h9l5 5v15H6z"/></svg>Upload File</button>
+        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="4" width="16" height="16"/></svg>Generate Notes</button>
+        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16v4H4z"/></svg>Exam Mode</button>
+        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 13h16"/></svg>Practice Paper</button>
+        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>Study Planner</button>
+        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/></svg>Multi Language</button>
+        <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>More</button>
+      </div>
+
+    </div>
+
+    <input id="q" placeholder="Message StudyGenius..."
+    oninput="toggleButtons()" onkeydown="if(event.key==='Enter') handleAction()">
+
+    <span class="icon">
+      <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 14a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3z"/>
+        <path d="M19 11a7 7 0 01-14 0H3a9 9 0 0018 0h-2z"/>
+      </svg>
+    </span>
+
+    <div class="actionBtn" id="actionBtn" onclick="handleAction()">
+      <svg id="icon" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>
+      </svg>
+    </div>
+
   </div>
 </div>
 
@@ -304,8 +307,63 @@ input{
 </div>
 
 <script>
+window.onload=()=>{
+  setTimeout(()=>{
+    splash.style.display="none";
+    app.style.display="flex";
+  },1200);
+};
+
 function toggleSidebar(){
   document.querySelector(".sidebar").classList.toggle("collapsed");
+}
+
+function toggleMenu(e){
+  e.stopPropagation();
+  menu.style.display = menu.style.display==="flex"?"none":"flex";
+}
+document.addEventListener("click",()=>menu.style.display="none");
+
+function toggleButtons(){
+  let val=q.value.trim();
+  let icon=document.getElementById("icon");
+  let btn=document.getElementById("actionBtn");
+
+  if(val){
+    btn.classList.add("sendActive");
+    icon.innerHTML=`<path d="M12 4l-7 7h4v6h6v-6h4z"/>`;
+  }else{
+    btn.classList.remove("sendActive");
+    icon.innerHTML=`<path d="M4 10h2v4H4zm4-3h2v10H8zm4-4h2v18h-2zm4 3h2v10h-2zm4 4h2v4h-2z"/>`;
+  }
+}
+
+function handleAction(){
+  if(q.value.trim()){
+    let chat=document.getElementById("chat");
+
+    let user=document.createElement("div");
+    user.className="message user";
+    user.innerText=q.value;
+    chat.appendChild(user);
+
+    let bot=document.createElement("div");
+    bot.className="message bot";
+    bot.innerText="Thinking...";
+    chat.appendChild(bot);
+
+    q.value="";
+    toggleButtons();
+
+    setTimeout(()=>{
+      bot.innerText="Response generated.";
+    },800);
+  }
+}
+
+function toggleTheme(){
+  document.body.classList.toggle("dark");
+  document.body.classList.toggle("light");
 }
 </script>
 
