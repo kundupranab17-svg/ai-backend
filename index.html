@@ -56,12 +56,16 @@ body{
   display:flex;
   flex-direction:column;
   justify-content:space-between;
+  transition:width 0.3s;
 }
 body.light .sidebar{background:#f7f7f8;}
 
 .sidebar.collapsed{width:70px;}
-.sidebar.collapsed .btn span{display:none;}
+.sidebar.collapsed .btn span,
+.sidebar.collapsed .chatsTitle,
+.sidebar.collapsed .chatName{display:none;}
 .sidebar.collapsed .btn{justify-content:center;}
+.sidebar.collapsed .chatInfo{justify-content:center;}
 
 .logoRow{
   display:flex;
@@ -88,6 +92,7 @@ body.light .sidebar{background:#f7f7f8;}
   padding:10px;border:none;border-radius:8px;
   margin:4px 0;background:transparent;
   color:inherit;text-align:left;cursor:pointer;
+  transition:background 0.2s;
 }
 .btn:hover{background:#2a2b32;}
 
@@ -103,11 +108,9 @@ body.light .sidebar{background:#f7f7f8;}
 .chatsTitle{
   font-size:12px;
   color:#888;
-  margin:10px 0 4px 0;
-  padding-left:5px;
-  border-top:1px solid #444;
+  margin:8px 0 4px 5px;
 }
-body.light .chatsTitle{color:#555; border-top:1px solid #ddd;}
+body.light .chatsTitle{color:#555;}
 
 .chatItem{
   display:flex;
@@ -117,6 +120,7 @@ body.light .chatsTitle{color:#555; border-top:1px solid #ddd;}
   padding:6px 8px;
   border-radius:8px;
   cursor:pointer;
+  position:relative;
 }
 .chatItem:hover{background:#2a2b32;}
 body.light .chatItem:hover{background:#e5e5e5;}
@@ -134,9 +138,38 @@ body.light .chatItem:hover{background:#e5e5e5;}
   flex-shrink:0;
 }
 .chatName{font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.chatMenuIcon{cursor:pointer;padding:4px;border-radius:4px;}
+.chatMenuIcon{cursor:pointer;padding:4px;border-radius:4px;user-select:none;}
 .chatMenuIcon:hover{background:#333;}
 body.light .chatMenuIcon:hover{background:#ddd;}
+
+/* Chat 3-dot dropdown */
+.chatDropdown{
+  position:absolute;
+  top:28px;
+  right:8px;
+  background:#2a2a2a;
+  border-radius:10px;
+  display:none;
+  flex-direction:column;
+  width:180px;
+  z-index:10;
+}
+body.light .chatDropdown{background:#f0f0f0; color:#111;}
+.chatDropdown button{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:none;
+  border:none;
+  color:inherit;
+  padding:8px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:13px;
+}
+.chatDropdown button:hover{background:#3a3a3a;}
+body.light .chatDropdown button:hover{background:#ddd;}
+.chatDropdown .delete{color:red;}
 
 /* MAIN */
 .main{flex:1;display:flex;flex-direction:column;}
@@ -258,11 +291,32 @@ input{
     <div class="chatsTitle">Your Chats</div>
     <div class="chatItem">
       <div class="chatInfo"><div class="chatIcon"></div><span class="chatName">Example Chat 1</span></div>
-      <div class="chatMenuIcon">⋯</div>
+      <div class="chatMenuIcon" onclick="toggleChatDropdown(event,0)">⋯
+        <div class="chatDropdown" id="chatDropdown0">
+          <button><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg>Share</button>
+          <button><svg viewBox="0 0 24 24"><path d="M12 2v20"/></svg>Start Group Chat</button>
+          <button><svg viewBox="0 0 24 24"><path d="M3 3l18 18"/></svg>Rename</button>
+          <hr>
+          <button><svg viewBox="0 0 24 24"><path d="M12 2v20"/></svg>Pin Chat</button>
+          <button><svg viewBox="0 0 24 24"><path d="M3 3l18 18"/></svg>Archive</button>
+          <button class="delete"><svg viewBox="0 0 24 24"><path d="M3 6h18M6 6v14h12V6"/></svg>Delete</button>
+        </div>
+      </div>
     </div>
+
     <div class="chatItem">
       <div class="chatInfo"><div class="chatIcon"></div><span class="chatName">Example Chat 2</span></div>
-      <div class="chatMenuIcon">⋯</div>
+      <div class="chatMenuIcon" onclick="toggleChatDropdown(event,1)">⋯
+        <div class="chatDropdown" id="chatDropdown1">
+          <button><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg>Share</button>
+          <button><svg viewBox="0 0 24 24"><path d="M12 2v20"/></svg>Start Group Chat</button>
+          <button><svg viewBox="0 0 24 24"><path d="M3 3l18 18"/></svg>Rename</button>
+          <hr>
+          <button><svg viewBox="0 0 24 24"><path d="M12 2v20"/></svg>Pin Chat</button>
+          <button><svg viewBox="0 0 24 24"><path d="M3 3l18 18"/></svg>Archive</button>
+          <button class="delete"><svg viewBox="0 0 24 24"><path d="M3 6h18M6 6v14h12V6"/></svg>Delete</button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -332,6 +386,7 @@ function toggleSidebar(){
   document.querySelector(".sidebar").classList.toggle("collapsed");
 }
 
+// INPUT PLUS MENU
 function toggleMenu(e){
   e.stopPropagation();
   menu.style.display = menu.style.display==="flex"?"none":"flex";
@@ -379,7 +434,17 @@ function toggleTheme(){
   document.body.classList.toggle("dark");
   document.body.classList.toggle("light");
 }
+
+// CHAT 3-DOT MENU
+function toggleChatDropdown(e,index){
+  e.stopPropagation();
+  const dd=document.getElementById('chatDropdown'+index);
+  const allDD=document.querySelectorAll('.chatDropdown');
+  allDD.forEach(d=>{if(d!==dd)d.style.display='none';});
+  dd.style.display=dd.style.display==='flex'?'none':'flex';
+}
+document.addEventListener('click',()=>{document.querySelectorAll('.chatDropdown').forEach(d=>d.style.display='none');});
 </script>
 
 </body>
-</html>`
+</html>
