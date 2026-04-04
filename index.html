@@ -17,51 +17,311 @@ body{margin:0;font-family:system-ui;display:flex;height:100vh;}
 @keyframes zoomFade{0%{transform:scale(0.6);opacity:0;}100%{transform:scale(1);}}
 
 /* SIDEBAR */
-.sidebar{width:220px;background:#202123;padding:12px;display:flex;flex-direction:column;justify-content:space-between;}
-.btn{padding:10px;border:none;background:transparent;color:white;cursor:pointer;}
+.sidebar{width:220px;background:#202123;padding:12px;display:flex;flex-direction:column;justify-content:space-between;transition:0.3s;}
+.sidebar.collapsed{width:70px;}
+.sidebar.collapsed .btn span,
+.sidebar.collapsed .yourChats,
+.sidebar.collapsed .chatItem,
+.sidebar.collapsed .planBtn{display:none;}
+.sidebar.collapsed .btn{justify-content:center;}
+.sidebar.collapsed .accInfo{display:none;}
+.sidebar.collapsed .account{justify-content:center;}
+
+.logoRow{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.logoWrap{width:28px;height:28px;border-radius:50%;overflow:hidden;}
+.logoWrap img{width:100%;height:100%;object-fit:cover;}
+
+.toggleBtn{cursor:pointer;padding:6px;border-radius:6px;}
+.toggleBtn:hover{background:#2a2b32;}
+
+.btn{display:flex;align-items:center;gap:10px;padding:10px;border:none;border-radius:8px;margin:4px 0;background:transparent;color:inherit;cursor:pointer;}
 .btn:hover{background:#2a2b32;}
 
-.main{flex:1;display:flex;flex-direction:column;}
-.chat{flex:1;padding:20px;}
+.btn svg{width:18px;height:18px;stroke:white;fill:none;stroke-width:2;}
 
-.inputBar{padding:10px;border-top:1px solid #333;}
-input{width:100%;padding:10px;background:#2a2a2a;border:none;color:white;}
+/* YOUR CHATS */
+.yourChats{font-size:14px;margin:10px 0 6px 6px;color:#9ca3af;font-weight:500;}
+
+.chatItem{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:6px;position:relative;font-size:13px;}
+.chatItem:hover{background:#2a2b32;}
+
+.left{display:flex;align-items:center;gap:6px;}
+.dot{width:6px;height:6px;background:white;border-radius:50%;}
+
+/* MENU 3 DOT */
+.menu3{
+position:absolute;
+right:-210px;
+top:0;
+width:210px;
+background:#2a2a2a;
+border-radius:10px;
+padding:6px 0;
+display:none;
+flex-direction:column;
+z-index:1000;
+}
+
+.menu3 button{
+display:flex;
+align-items:center;
+gap:10px;
+background:none;
+border:none;
+color:white;
+padding:10px 14px;
+font-size:13px;
+cursor:pointer;
+}
+
+.menu3 button:hover{background:#3a3a3a;}
+
+.menu3 svg{
+width:16px;
+height:16px;
+stroke:white;
+fill:none;
+stroke-width:2;
+}
+
+.menu3 hr{
+border:none;
+border-top:1px solid #444;
+margin:6px 0;
+}
+
+.delete{
+color:#ff4d4d !important;
+}
+.delete svg{
+stroke:#ff4d4d !important;
+}
+
+/* ACCOUNT */
+.divider{height:1px;background:#2f2f2f;margin:10px 0;}
+
+.account{display:flex;align-items:center;gap:10px;padding:8px;border-radius:8px;}
+.account:hover{background:#2a2b32;}
+
+.avatar{width:32px;height:32px;border-radius:50%;background:#444;}
+
+.accName{font-size:14px;}
+.plan{font-size:11px;color:#aaa;}
+
+.planBtn{
+margin-top:8px;
+padding:10px;
+text-align:center;
+border-radius:20px;
+background:#2a2a2a;
+cursor:pointer;
+}
+.planBtn:hover{background:#3a3a3a;}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;}
+.topbar{height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 15px;border-bottom:1px solid #444;}
+
+.chat{flex:1;padding:25px;overflow-y:auto;}
+
+.message{max-width:70%;padding:14px;margin:10px 0;border-radius:14px;}
+.user{margin-left:auto;background:linear-gradient(45deg,#3b82f6,#06b6d4);}
+.bot{background:#242424;}
+
+/* INPUT */
+.inputBar{padding:14px;border-top:1px solid #333;}
+.inputBox{display:flex;align-items:center;gap:10px;max-width:800px;margin:auto;background:#2a2a2a;border-radius:18px;padding:12px 14px;}
+
+input{flex:1;background:none;border:none;color:inherit;outline:none;}
+
+.icon{cursor:pointer;padding:6px;border-radius:6px;}
+.icon:hover{background:#333;}
+
+.menu{
+position:absolute;
+bottom:55px;
+left:0;
+background:#2a2a2a;
+border-radius:12px;
+padding:10px;
+display:none;
+flex-direction:column;
+width:230px;
+}
+
+.menu button{
+display:flex;
+align-items:center;
+gap:10px;
+background:none;
+border:none;
+color:white;
+padding:10px;
+border-radius:8px;
+}
+
+.menu button:hover{background:#3a3a3a;}
+
+.actionBtn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#2f2f2f;cursor:pointer;}
+.sendActive{background:#10a37f;}
 </style>
 </head>
 
 <body class="dark">
 
 <div id="splash">
-  <div id="logoAnim"><img src="logo.png"></div>
+<div id="logoAnim"><img src="logo.png"></div>
 </div>
 
 <div id="app" style="display:none; width:100%; display:flex;">
 
 <div class="sidebar">
-  <button class="btn">New Chat</button>
-  <button class="btn">Search</button>
+
+<div>
+
+<div class="logoRow">
+<div class="logoWrap"><img src="logo.png"></div>
+<div class="toggleBtn" onclick="toggleSidebar()">☰</div>
+</div>
+
+<!-- MAIN OPTIONS -->
+<button class="btn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>New chat</span></button>
+<button class="btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span>Search chats</span></button>
+
+<!-- YOUR CHATS -->
+<div class="yourChats">Your Chats</div>
+
+<div class="chatItem">
+<div class="left">
+<div class="dot"></div>
+<span>Example Chat</span>
+</div>
+
+<div onclick="toggleMenu3(event)">⋯</div>
+
+<div class="menu3">
+<button><svg viewBox="0 0 24 24"><path d="M4 12v-2a4 4 0 014-4h6"/><polyline points="14 4 20 4 20 10"/></svg>Share</button>
+<button><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><circle cx="17" cy="17" r="3"/></svg>Start group chat</button>
+<button><svg viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4z"/></svg>Rename</button>
+<hr>
+<button><svg viewBox="0 0 24 24"><path d="M12 17v-10"/></svg>Pin</button>
+<button><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="4"/></svg>Archive</button>
+<button class="delete"><svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M6 6l1 14h10l1-14"/></svg>Delete</button>
+</div>
+
+</div>
+
+</div>
+
+<div>
+<div class="divider"></div>
+
+<div class="account">
+<div class="avatar"></div>
+<div class="accInfo">
+<div class="accName">Pranab</div>
+<div class="plan">Free</div>
+</div>
+</div>
+
+<div class="planBtn">Upgrade Plan</div>
+
+</div>
+
 </div>
 
 <div class="main">
-  <div class="chat" id="chat"></div>
 
-  <div class="inputBar">
-    <input id="q" placeholder="Message StudyGenius...">
-  </div>
+<div class="topbar">
+<div>StudyGenius AI ▼</div>
+<div class="icon" onclick="toggleTheme()">🌗</div>
 </div>
 
+<div class="chat" id="chat"></div>
+
+<div class="inputBar">
+<div class="inputBox">
+
+<input id="q" placeholder="Message StudyGenius..."
+oninput="toggleButtons()" onkeydown="if(event.key==='Enter') handleAction()">
+
+<div class="actionBtn" id="actionBtn" onclick="handleAction()">
+<svg id="icon" width="18" height="18" viewBox="0 0 24 24">
+<path d="M4 10h2v4H4z"/>
+</svg>
+</div>
+
+</div>
+</div>
+
+</div>
 </div>
 
 <script>
 window.onload=()=>{
-  const splash = document.getElementById("splash");
-  const app = document.getElementById("app");
+const splash=document.getElementById("splash");
+const app=document.getElementById("app");
 
-  setTimeout(()=>{
-    splash.style.display="none";
-    app.style.display="flex";
-  },1200);
+setTimeout(()=>{
+splash.style.display="none";
+app.style.display="flex";
+},1200);
 };
+
+function toggleSidebar(){
+document.querySelector(".sidebar").classList.toggle("collapsed");
+}
+
+function toggleMenu3(e){
+e.stopPropagation();
+document.querySelectorAll(".menu3").forEach(m=>m.style.display="none");
+let menu=e.target.parentElement.querySelector(".menu3");
+menu.style.display="flex";
+}
+
+document.addEventListener("click",()=>document.querySelectorAll(".menu3").forEach(m=>m.style.display="none"));
+
+function toggleButtons(){
+let val=q.value.trim();
+let icon=document.getElementById("icon");
+let btn=document.getElementById("actionBtn");
+
+if(val){
+btn.classList.add("sendActive");
+icon.innerHTML=`<path d="M12 4l-7 7h4v6h6v-6h4z"/>`;
+}else{
+btn.classList.remove("sendActive");
+icon.innerHTML=`<path d="M4 10h2v4H4z"/>`;
+}
+}
+
+function handleAction(){
+if(q.value.trim()){
+let chat=document.getElementById("chat");
+
+let user=document.createElement("div");
+user.className="message user";
+user.innerText=q.value;
+chat.appendChild(user);
+
+let bot=document.createElement("div");
+bot.className="message bot";
+bot.innerText="Thinking...";
+chat.appendChild(bot);
+
+q.value="";
+toggleButtons();
+
+setTimeout(()=>{
+bot.innerText="Response generated.";
+},800);
+}
+}
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
+document.body.classList.toggle("light");
+}
 </script>
 
 </body>
