@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -88,8 +88,20 @@ body.light .sidebar{background:#f7f7f8;}
   padding:10px;border:none;border-radius:8px;
   margin:4px 0;background:transparent;
   color:inherit;text-align:left;cursor:pointer;
+  transition:all 0.2s ease;
 }
-.btn:hover{background:#2a2b32;}
+
+/* 🔥 HOVER GLOW */
+.btn:hover{
+  background:#2a2b32;
+  box-shadow:0 0 8px rgba(255,255,255,0.08);
+}
+
+/* 🎯 ACTIVE STATE */
+.btn.active{
+  background:#343541;
+  box-shadow:0 0 10px rgba(255,255,255,0.12);
+}
 
 .btn svg, .menu svg{
   width:18px;
@@ -173,8 +185,12 @@ input{
   color:white;
   padding:10px;
   border-radius:8px;
+  transition:all 0.2s;
 }
-.menu button:hover{background:#3a3a3a;}
+.menu button:hover{
+  background:#3a3a3a;
+  box-shadow:0 0 6px rgba(255,255,255,0.08);
+}
 
 /* BUTTON */
 .actionBtn{
@@ -206,14 +222,14 @@ input{
       <div class="toggleBtn" onclick="toggleSidebar()">☰</div>
     </div>
 
-    <!-- SIDEBAR SAME -->
-    <button class="btn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>New chat</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><span>Search chats</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><circle cx="8" cy="8" r="2"/><path d="M21 15l-5-5L5 21"/></svg><span>Images</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Apps</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M11 8v6M8 11h6"/></svg><span>Deep search</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span>Codex</span></button>
-    <button class="btn"><svg viewBox="0 0 24 24"><path d="M3 7h5l2 3h11v11H3z"/></svg><span>Projects</span></button>
+    <!-- SIDEBAR -->
+    <button class="btn active">New chat</button>
+    <button class="btn">Search chats</button>
+    <button class="btn">Images</button>
+    <button class="btn">Apps</button>
+    <button class="btn">Deep search</button>
+    <button class="btn">Codex</button>
+    <button class="btn">Projects</button>
   </div>
 
   <div>Pranab<br>Free Plan</div>
@@ -234,25 +250,15 @@ input{
     <div style="position:relative;">
       <span class="icon" onclick="toggleMenu(event)">➕</span>
 
-      <!-- 🔥 ONLY CHANGE HERE -->
       <div class="menu" id="menu">
-        <button><svg viewBox="0 0 24 24"><path d="M4 7h4l2-3h4l2 3h4v13H4z"/><circle cx="12" cy="13" r="4"/></svg>Upload Photo</button>
-        <button><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6z"/><polyline points="14 2 14 8 20 8"/></svg>Upload File</button>
-        <button><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 00-4 13v3h8v-3a7 7 0 00-4-13z"/></svg>Generate Notes</button>
-        <button><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/></svg>Exam Mode</button>
-        <button><svg viewBox="0 0 24 24"><line x1="6" y1="20" x2="6" y2="10"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="18" y1="20" x2="18" y2="14"/></svg>Practice Paper</button>
-        <button><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Study Planner</button>
-        <button><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>Multi Language</button>
-
-        <!-- ✅ FIXED 3 DOTS -->
-        <button>
-          <svg viewBox="0 0 24 24">
-            <circle cx="5" cy="12" r="1.5"/>
-            <circle cx="12" cy="12" r="1.5"/>
-            <circle cx="19" cy="12" r="1.5"/>
-          </svg>
-          More
-        </button>
+        <button>Upload Photo</button>
+        <button>Upload File</button>
+        <button>Generate Notes</button>
+        <button>Exam Mode</button>
+        <button>Practice Paper</button>
+        <button>Study Planner</button>
+        <button>Multi Language</button>
+        <button>More</button>
       </div>
 
     </div>
@@ -296,6 +302,14 @@ function toggleMenu(e){
   menu.style.display = menu.style.display==="flex"?"none":"flex";
 }
 document.addEventListener("click",()=>menu.style.display="none");
+
+/* 🔥 ACTIVE CLICK SYSTEM */
+document.querySelectorAll(".btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+  });
+});
 
 function toggleButtons(){
   let val=q.value.trim();
