@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<style>StudyGenius AI ▼</style>
+<div style="font-weight:600; display:flex; align-items:center; gap:6px;">
+  StudyGenius AI
+  <svg width="16" height="16" viewBox="0 0 24 24">
+    <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -244,12 +249,7 @@ input{flex:1;background:none;border:none;color:inherit;outline:none;}
 <div class="main">
 
 <div class="topbar">
-  <div style="font-weight:600; display:flex; align-items:center; gap:6px;">
-  StudyGenius AI
-  <svg width="16" height="16" viewBox="0 0 24 24">
-    <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</div>
+  <div>StudyGenius AI ▼</div>
   <div class="icon" onclick="toggleTheme()">🌗</div>
 </div>
 
@@ -274,7 +274,7 @@ input{flex:1;background:none;border:none;color:inherit;outline:none;}
 
     </div>
 
-    <input id="q" placeholder="Ask anything"
+    <input id="q" placeholder="Message StudyGenius..."
     oninput="toggleButtons()" onkeydown="if(event.key==='Enter') handleAction()">
 
     <span class="icon">
