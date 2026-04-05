@@ -242,33 +242,31 @@ input{flex:1;background:none;border:none;color:inherit;outline:none;}
 </div>
 
 <div class="main">
-<!-- TOPBAR INNER -->
-<div style="display:flex; align-items:center; gap:10px; height:50px; padding:0 15px; position:relative; width:100%;">
+<div class="topbar" style="display:flex; align-items:center; justify-content:space-between; padding:0 15px; height:50px; width:100%; position:relative;">
 
   <!-- Left: StudyGenius AI + arrow -->
-  <span style="display:flex; align-items:center; gap:6px; font-weight:600;">
+  <div style="display:flex; align-items:center; gap:6px; font-weight:600; font-size:14px;">
     StudyGenius AI
     <svg width="14" height="14" viewBox="0 0 24 24">
       <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
-  </span>
+  </div>
 
-  <!-- CENTER CAPSULE -->
-  <div style="position:absolute; left:50%; top:50%; transform:translate(-50%, -50%); display:flex; align-items:center; gap:6px; background:#8b5cf6; padding:6px 12px; border-radius:999px; font-size:12.5px; color:white; font-weight:500; line-height:1;">
-  <!-- Gift icon -->
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 3v4" />
-    <path d="M8 5h8" />
-    <rect x="3" y="8" width="18" height="13" rx="2" />
-    <path d="M12 8v13" />
-    <path d="M3 12h18" />
-  </svg>
+  <!-- Center: Capsule with gift -->
+  <div style="display:flex; align-items:center; gap:6px; background:#8b5cf6; padding:6px 14px; border-radius:999px; font-size:12.5px; color:white; font-weight:500; line-height:1; position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3v4" /> <!-- Ribbon center -->
+      <path d="M8 5h8" /> <!-- Ribbon horizontal -->
+      <rect x="3" y="8" width="18" height="13" rx="2" /> <!-- Gift box -->
+      <path d="M12 8v13" /> <!-- Middle vertical -->
+      <path d="M3 12h18" /> <!-- Middle horizontal -->
+    </svg>
+    <span>Free Plan</span>
+    <span style="cursor:pointer; margin-left:5px;">✕</span>
+  </div>
 
-  <span>Free Plan</span>
-  <span style="cursor:pointer; margin-left:5px;">✕</span>
-</div>
-  <!-- Right: theme toggle -->
-  <div class="icon" style="margin-left:auto;">🌗</div>
+  <!-- Right: Theme toggle -->
+  <div class="icon" onclick="toggleTheme()">🌗</div>
 
 </div>
 <div class="chat" id="chat"></div>
